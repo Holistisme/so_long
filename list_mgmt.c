@@ -6,13 +6,13 @@
 /*   By: aheitz <aheitz@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/09 12:06:43 by aheitz            #+#    #+#             */
-/*   Updated: 2024/01/09 16:06:35 by aheitz           ###   ########.fr       */
+/*   Updated: 2024/01/12 19:43:24 by aheitz           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "so_long.h"
 
-// Creates a linked list of lines read by GNL
+// Creates a double-linked list of lines read by GNL
 t_list	*create_list(int fd)
 {
 	t_list	*head;
@@ -21,7 +21,7 @@ t_list	*create_list(int fd)
 
 	head = create_node(get_next_line(fd));
 	if (!head)
-		return (NULL);
+		list_error();
 	current = head;
 	line = get_next_line(fd);
 	while (line)
@@ -30,7 +30,7 @@ t_list	*create_list(int fd)
 		if (!current->next)
 		{
 			free_list(head);
-			return (NULL);
+			list_error();
 		}
 		current = current->next;
 		line = get_next_line(fd);
@@ -63,4 +63,11 @@ void	free_list(t_list *head)
 		free(current->line);
 		free(current);
 	}
+}
+
+// Stops program if double-linked list initialization fails
+void	list_error(void)
+{
+	write(2, "Error\nThe linked list could not be created!", 45);
+	exit(EXIT_FAILURE);
 }

@@ -1,19 +1,19 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   list_mgmt.c                                        :+:      :+:    :+:   */
+/*   set_list.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: aheitz <aheitz@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/09 12:06:43 by aheitz            #+#    #+#             */
-/*   Updated: 2024/01/12 19:43:24 by aheitz           ###   ########.fr       */
+/*   Updated: 2024/01/23 21:49:40 by aheitz           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "so_long.h"
+#include "../so_long.h"
 
-// Creates a double-linked list of lines read by GNL
-t_list	*create_list(int fd)
+// Sets a linked list with lines read by GNL
+t_list	*set_list(int fd)
 {
 	t_list	*head;
 	t_list	*current;
@@ -21,7 +21,7 @@ t_list	*create_list(int fd)
 
 	head = create_node(get_next_line(fd));
 	if (!head)
-		list_error();
+		termination("The linked list could not be created!");
 	current = head;
 	line = get_next_line(fd);
 	while (line)
@@ -30,7 +30,7 @@ t_list	*create_list(int fd)
 		if (!current->next)
 		{
 			free_list(head);
-			list_error();
+			termination("A node in the linked list could not be created!");
 		}
 		current = current->next;
 		line = get_next_line(fd);
@@ -43,15 +43,17 @@ t_list	*create_node(char *line)
 {
 	t_list	*new_node;
 
+	if (!line)
+		return (NULL);
 	new_node = malloc(sizeof(t_list));
-	if (!new_node || !line)
+	if (!new_node)
 		return (NULL);
 	new_node->line = line;
 	new_node->next = NULL;
 	return (new_node);
 }
 
-// Frees list memory
+// Frees list allocated memory
 void	free_list(t_list *head)
 {
 	t_list	*current;
@@ -63,11 +65,4 @@ void	free_list(t_list *head)
 		free(current->line);
 		free(current);
 	}
-}
-
-// Stops program if double-linked list initialization fails
-void	list_error(void)
-{
-	write(2, "Error\nThe linked list could not be created!", 45);
-	exit(EXIT_FAILURE);
 }

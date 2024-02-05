@@ -6,7 +6,7 @@
 /*   By: aheitz <aheitz@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/08 19:46:42 by aheitz            #+#    #+#             */
-/*   Updated: 2024/01/12 20:26:17 by aheitz           ###   ########.fr       */
+/*   Updated: 2024/02/05 18:29:35 by aheitz           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,8 +14,9 @@
 # define SO_LONG_H
 # include "get_next_line/get_next_line.h"
 # include <fcntl.h>
-# include <stdio.h>
 # include <stdlib.h>
+
+# include <stdio.h>
 
 // The linked list to guarantee GNL results
 typedef struct s_list
@@ -24,44 +25,77 @@ typedef struct s_list
 	struct s_list	*next;
 }					t_list;
 
-// The enumeration for error codes
-typedef enum e_err_code
+// The structure for the map loaded by the player
+typedef struct s_map
 {
-	ERR_LIMITS,
-	ERR_NON_RECT,
-	ERR_UNKNOWN_POS,
-	ERR_MANY_SPAWNS,
-	ERR_MANY_EXITS,
-	ERR_NO_COLLECT,
-	ERR_BAD_PATH,
-	ERR_INIT_ELEMENTS
-}				t_err_code;
-
-// The structure for the list of map elements
-typedef struct s_elem
-{
+	char		**cells;
 	int			collectibles;
-	int			spawn;
-	int			exit;
-}				t_elem;
+	int			spawn_x;
+	int			spawn_y;
+	size_t		height;
+	size_t		width;
+}				t_map;
 
-// Functions from list_mgmt.c
-t_list	*create_list(int fd);
+// The enumeration for error codes
+typedef enum e_error_code
+{
+	ERROR_NO_FILE,
+	ERROR_MULTIPLE_FILES,
+	ERROR_UNRECOGNISED_EXTENSION,
+	ERROR_INVALID_FD,
+	ERROR_UNRECOGNISED_ELEMENT,
+	ERROR_INSUFFICIENT_SPACE,
+	ERROR_INVALID_LIMITS,
+	ERROR_NON_RECTANGULAR_MAP,
+	ERROR_NO_SPAWN,
+	ERROR_TOO_MANY_SPAWNS,
+	ERROR_NO_COLLECTIBLE,
+	ERROR_NO_EXIT,
+	ERROR_TOO_MANY_EXITS,
+	ERROR_INVALID_PATH,
+	ERROR_UNALLOCATED_CELLS
+}				t_error_code;
+
+// Functions from verifications/cells_validity.c
+void	check_cells_validity(t_map *map);
+void	check_number_elements(t_map *map, int spawn, int exit);
+void	erroneous_cells(t_map *map, t_error_code code);
+
+// Functions from initialization/set_map.c
+t_map	*set_map(t_list *list);
+void	set_cells(t_list *head, t_map *map);
+size_t	get_height(t_list *head);
+size_t	get_width(char *line);
+void	free_map(t_map *map);
+
+// Functions from verifications/map_validity.c
+void	check_map_validity(t_list *head, t_map *map);
+int		map_is_quite_large(size_t height, size_t width);
+int		map_is_rectangular(t_list *head, size_t width);
+int		map_has_limits(t_list *head, size_t width);
+void	erroneous_map(t_list *head, t_map *map, t_error_code code);
+
+// Functions from verifications/map_file.c
+void	check_map_file(int argc, char **argv);
+void	check_extension(char *file_name);
+void	erroneous_file_name(t_error_code code);
+
+// Functions from other/utilities.c
+size_t	get_size(char *string);
+char	*remove_newline(char *string, size_t width);
+int		define_spawn(t_map *map, size_t coordinates_x, size_t coordinates_y);
+void	termination(char *error_message);
+
+// Functions from initialization/set_list.c
+t_list	*set_list(int fd);
 t_list	*create_node(char *line);
-void	list_error(void);
 void	free_list(t_list *head);
 
-// Functions from checks.c
-void	map_checking(t_list *head);
-int		rectangle_checking(t_list *head);
-int		limits_checking(t_list *head);
-int		elem_map_checking(t_list *head, t_elem *elements);
-int		elem_count_checking(t_elem *elements);
-
-// Functions from checks_utils.c
-int		set_elem(t_elem *elem_struct);
-size_t	get_width(char *line);
-void	error_indication(t_err_code code);
-void	error_mgmt(t_list *head, t_elem *elem_struct, t_err_code code);
+// Functions from verifications/pathway.c
+void	check_pathway_validity(t_map *map);
+char	**copy_cells(t_map *map);
+int		scan_map(size_t x, size_t y, char **cells);
+void	erroneous_path(t_map *map, char **cells, t_error_code code);
+void	free_cells(char **cells);
 
 #endif

@@ -6,34 +6,46 @@
 #    By: aheitz <aheitz@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/01/09 16:39:50 by aheitz            #+#    #+#              #
-#    Updated: 2024/01/12 19:29:51 by aheitz           ###   ########.fr        #
+#    Updated: 2024/02/05 21:18:08 by aheitz           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
-NAME = so_long
+NAME	:= so_long
+CFLAGS	:= -Wextra -Wall -Werror
+LIBMLX	:= ./lib/MLX42
 
-CFLAGS = -Wall -Wextra -Werror
+HEADERS	:= -I ./include -I $(LIBMLX)/include
+LIBS	:= $(LIBMLX)/build/libmlx42.a -ldl -lglfw -pthread -lm
+SRCS	:= get_next_line/get_next_line.c \
+		get_next_line/get_next_line_utils.c \
+		initialization/set_list.c \
+		initialization/set_map.c \
+		verifications/cells_validity.c \
+		verifications/map_file.c \
+		verifications/map_validity.c \
+		verifications/pathway.c \
+		other/utilities.c \
+		main.c
+OBJS	:= ${SRCS:.c=.o}
 
-MAIN = main.c
-SRC = list_mgmt.c \
-	checks.c \
-	checks_utils.c
-GNL = get_next_line/get_next_line.c \
-	get_next_line/get_next_line_utils.c
+all: libmlx $(NAME)
 
-OBJS = ${SRC:.c=.o} ${GNL:.c=.o} ${MAIN:.c=.o}
+libmlx:
+	@cmake $(LIBMLX) -B $(LIBMLX)/build && make -C $(LIBMLX)/build -j4
 
-all: ${NAME}
+%.o: %.c
+	@$(CC) $(CFLAGS) -o $@ -c $< $(HEADERS) && printf "Compiling: $(notdir $<)"
 
-${NAME} : ${OBJS}
-	${CC} ${CFLAGS} ${OBJS} -o ${NAME}
-	
+$(NAME): $(OBJS)
+	@$(CC) $(OBJS) $(LIBS) $(HEADERS) -o $(NAME)
+
 clean:
-	${RM} ${OBJS}
+	@rm -rf $(OBJS)
+	@rm -rf $(LIBMLX)/build
 
 fclean: clean
-	${RM} ${NAME}
+	@rm -rf $(NAME)
 
-re: fclean all
+re: clean all
 
-.PHONY: all clean fclean re
+.PHONY: all, clean, fclean, re, libmlx

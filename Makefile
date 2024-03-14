@@ -6,25 +6,33 @@
 #    By: aheitz <aheitz@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/01/09 16:39:50 by aheitz            #+#    #+#              #
-#    Updated: 2024/02/05 21:18:08 by aheitz           ###   ########.fr        #
+#    Updated: 2024/03/14 12:30:37 by aheitz           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME	:= so_long
-CFLAGS	:= -Wextra -Wall -Werror
+CFLAGS	:= -Wextra -Wall -Werror -pthread
 LIBMLX	:= ./lib/MLX42
 
 HEADERS	:= -I ./include -I $(LIBMLX)/include
 LIBS	:= $(LIBMLX)/build/libmlx42.a -ldl -lglfw -pthread -lm
 SRCS	:= get_next_line/get_next_line.c \
 		get_next_line/get_next_line_utils.c \
-		initialization/set_list.c \
-		initialization/set_map.c \
-		verifications/cells_validity.c \
-		verifications/map_file.c \
-		verifications/map_validity.c \
-		verifications/pathway.c \
-		other/utilities.c \
+		setup/save_map.c \
+		setup/set_map.c \
+		checking/argument.c \
+		checking/elements.c \
+		checking/map.c \
+		checking/pathway.c \
+		error/free.c \
+		error/management.c \
+		game/setup.c \
+		game/graphics.c \
+		game/map_char.c \
+		game/play.c \
+		animation/management.c \
+		animation/grass.c \
+		animation/mill.c \
 		main.c
 OBJS	:= ${SRCS:.c=.o}
 

@@ -6,7 +6,7 @@
 /*   By: aheitz <aheitz@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/07 19:26:36 by aheitz            #+#    #+#             */
-/*   Updated: 2024/03/11 13:41:31 by aheitz           ###   ########.fr       */
+/*   Updated: 2024/03/15 16:41:02 by aheitz           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,17 +57,18 @@ void	move_request(mlx_key_data_t key_data, void *param)
 
 void	set_character(t_game *game)
 {
+	t_position *position = allocate(game, sizeof(t_position), 0); // ! A FREE
 	game->character = allocate(game, sizeof(t_character), CHARACTER_ALLOCATION);
 	game->character->position = allocate(game, sizeof(t_position), POSITION_ALLOCATION);
 	game->character->skin_tab = allocate(game, sizeof(mlx_image_t) * 4, 0); //! CODE A CHANGER
-	game->character->position->x = game->map->spawn->x * 64;
-	game->character->position->y = game->map->spawn->y * 64;
+	position->x = game->map->spawn->x * 64;
+	position->y = game->map->spawn->y * 64;
 	set_texture(game, &game->character->skin_tab[0], "./textures/joan_down1.png");
 	set_texture(game, &game->character->skin_tab[1], "./textures/joan_down2.png");
 	set_texture(game, &game->character->skin_tab[2], "./textures/joan_down3.png");
 	set_texture(game, &game->character->skin_tab[3], "./textures/joan_down4.png");
 	game->character->skin_index = 0;
 	game->character->current_skin = game->character->skin_tab[game->character->skin_index];
-	display_texture(game, &game->character->current_skin, game->map->spawn->y, game->map->spawn->x);
+	display_texture(game, &game->character->current_skin, position);
 }
 

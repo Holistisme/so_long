@@ -6,7 +6,7 @@
 /*   By: aheitz <aheitz@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/17 22:42:35 by aheitz            #+#    #+#             */
-/*   Updated: 2024/03/14 12:17:58 by aheitz           ###   ########.fr       */
+/*   Updated: 2024/03/15 16:20:56 by aheitz           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,8 +36,6 @@ void	scan_cells_elements(t_game *game)
 // ? Registers collectable elements or calls to register key positions
 void	save_element(t_game *game, size_t x, size_t y)
 {
-	if (!is_inside(game->map->cells[y][x], "12345"))
-		++game->map->grass;
 	if (game->map->cells[y][x] == 'C')
 		++game->map->collectibles;
 	else if (game->map->cells[y][x] == 'F')

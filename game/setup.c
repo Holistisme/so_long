@@ -6,7 +6,7 @@
 /*   By: aheitz <aheitz@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/07 17:25:42 by aheitz            #+#    #+#             */
-/*   Updated: 2024/03/14 12:59:41 by aheitz           ###   ########.fr       */
+/*   Updated: 2024/03/15 16:25:14 by aheitz           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,15 +19,17 @@ void	set_game(t_game *game)
 
 	open_window(game);
 	game->map->mills = 0;
-	game->map->grass_counter = allocate(game, sizeof(t_path_counter), GRASS_COUNTER); //TODO : Changer le code d'erreur!
-	game->map->grass_counter->grass = 0;
-	game->map->grass_counter->grass_left = 0;
-	game->map->grass_counter->grass_right = 0;
+	game->graphics->ground = NULL;
+	game->graphics->ground = allocate(game, sizeof(t_ground), 0); // TODO CHANGER ERREUR
+	game->graphics->ground->count = 0;
+	game->graphics->ground->simple_grass = allocate(game, sizeof(t_grass), 0); // TODO CHANGER ERREUR
+	game->graphics->ground->simple_grass->count = 0;
+	set_texture(game, &game->graphics->ground->simple_grass->dark, "./textures/grass/simple_dark");
+	set_texture(game, &game->graphics->ground->simple_grass->light, "./textures/grass/simple_light");
 	game->graphics = allocate(game, sizeof(t_graphics), GRAPHICS_ALLOCATION);
 	game->graphics->field = allocate(game, sizeof(t_field), 0); // TODO CHANGER ERREUR
 	game->graphics->month = allocate(game, sizeof(t_month), 0); // TODO CHANGER ERREUR
 	game->graphics->mill = NULL; // ! Verifier si necessaire!
-	game->graphics->grass = NULL; // ! Verifier si necessaire!
 	set_graphics(game);
 	game->day = 0;
 	load_graphics(game);

@@ -6,7 +6,7 @@
 /*   By: aheitz <aheitz@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/26 14:51:31 by aheitz            #+#    #+#             */
-/*   Updated: 2024/03/14 13:04:17 by aheitz           ###   ########.fr       */
+/*   Updated: 2024/03/15 16:36:29 by aheitz           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,6 +49,8 @@ void	set_graphics(t_game *game)
 	set_texture(game, &game->graphics->field->fall, "./textures/field_fall.png");
 	set_texture(game, &game->graphics->field->winter, "./textures/field_winter.png");
 
+	set_texture(game, &game->graphics->ground->snow,
+			"./textures/snow.png");
 	set_texture(game, &game->graphics->month->january, "./textures/months/january.png");
 	set_texture(game, &game->graphics->month->february, "./textures/months/february.png");
 	set_texture(game, &game->graphics->month->march, "./textures/months/march.png");
@@ -80,30 +82,29 @@ void	set_texture(t_game *game, mlx_image_t **target, const char *path)
 // ? Traverses cells and calls subfunctions to load graphics
 void	load_graphics(t_game *game)
 {
-	size_t	line;
-	size_t	column;
-
-	line = 0;
-	while (game->map->cells[line])
+	game->map->last_position = allocate(game, sizeof(t_position), 0); //TODO : Changer le code d'erreur!
+	game->map->last_position->y = 0;
+	while (game->map->cells[game->map->last_position->y])
 	{
-		column = 0;
-		while (game->map->cells[line][column])
+		game->map->last_position->x = 0;
+		while (game->map->cells[game->map->last_position->y][game->map->last_position->x])
 		{
-			if (is_inside(game->map->cells[line][column], "01234"))
-				char_is_digit(game, line, column++);
-			else if (is_inside(game->map->cells[line][column], "abcdefg"))
-				char_is_lowercase(game, line, column++);
-			else if (is_inside(game->map->cells[line][column], "XPCEUIOHJKLQWRTYASDFGZVM"))
-				char_is_uppercase(game, line, column++);
+			if (is_inside(game->map->cells[game->map->last_position->y][game->map->last_position->x], "01234"))
+				char_is_digit(game, game->map->last_position);
+			else if (is_inside(game->map->cells[game->map->last_position->y][game->map->last_position->x], "abcdefg"))
+				char_is_lowercase(game, game->map->last_position);
+			else if (is_inside(game->map->cells[game->map->last_position->y][game->map->last_position->x], "XPCEUIOHJKLQWRTYASDFGZVM"))
+				char_is_uppercase(game, game->map->last_position);
+			++game->map->last_position->x;
 		}
-		++line;
+		++game->map->last_position->y;
 	}
 	game->graphics->mill->second->instances->enabled = false;
 }
 
 // ? Simplifies the display of a graphic
-void	display_texture(t_game *game, mlx_image_t **texture, size_t y, size_t x)
+void	display_texture(t_game *game, mlx_image_t **texture, t_position *position)
 {
-	mlx_image_to_window(game->window, *texture, x * 64, y * 64);
+	mlx_image_to_window(game->window, *texture, position->x * 64, position->y * 64);
 }
 

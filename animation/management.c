@@ -6,7 +6,7 @@
 /*   By: aheitz <aheitz@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/13 09:36:51 by aheitz            #+#    #+#             */
-/*   Updated: 2024/03/14 12:29:50 by aheitz           ###   ########.fr       */
+/*   Updated: 2024/03/15 16:41:50 by aheitz           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,12 +18,11 @@ void	*start_animation(void *arg)
 
 	game = arg;
 	months_generation(game);
-	grass_generation(game);
 	while (1)
 	{
+		check_season(game);
 		mill_animation(game);
 		months_animation(game);
-		grass_animation(game);
 		fields_animation(game);
 		++game->day;
 		if (game->day > 360)
@@ -74,28 +73,31 @@ void	fields_animation(t_game *game)
 
 void	months_generation(t_game *game)
 {
-	display_texture(game, &game->graphics->month->january, 0, game->map->width / 2 - 1);
-	display_texture(game, &game->graphics->month->february, 0, game->map->width / 2 - 1);
+	game->graphics->month->position = allocate(game, sizeof(t_position), MILL_TEXTURE); //TODO : Changer le code d'erreur!
+	game->graphics->month->position->x = 0;
+	game->graphics->month->position->y = game->map->width / 2 - 1;
+	display_texture(game, &game->graphics->month->january, game->graphics->month->position);
+	display_texture(game, &game->graphics->month->february, game->graphics->month->position);
 	game->graphics->month->february->instances[0].enabled = false;
-	display_texture(game, &game->graphics->month->march, 0, game->map->width / 2 - 1);
+	display_texture(game, &game->graphics->month->march, game->graphics->month->position);
 	game->graphics->month->march->instances[0].enabled = false;
-	display_texture(game, &game->graphics->month->april, 0, game->map->width / 2 - 1);
+	display_texture(game, &game->graphics->month->april, game->graphics->month->position);
 	game->graphics->month->april->instances[0].enabled = false;
-	display_texture(game, &game->graphics->month->may, 0, game->map->width / 2 - 1);
+	display_texture(game, &game->graphics->month->may, game->graphics->month->position);
 	game->graphics->month->may->instances[0].enabled = false;
-	display_texture(game, &game->graphics->month->june, 0, game->map->width / 2 - 1);
+	display_texture(game, &game->graphics->month->june, game->graphics->month->position);
 	game->graphics->month->june->instances[0].enabled = false;
-	display_texture(game, &game->graphics->month->july, 0, game->map->width / 2 - 1);
+	display_texture(game, &game->graphics->month->july, game->graphics->month->position);
 	game->graphics->month->july->instances[0].enabled = false;
-	display_texture(game, &game->graphics->month->august, 0, game->map->width / 2 - 1);
+	display_texture(game, &game->graphics->month->august, game->graphics->month->position);
 	game->graphics->month->august->instances[0].enabled = false;
-	display_texture(game, &game->graphics->month->september, 0, game->map->width / 2 - 1);
+	display_texture(game, &game->graphics->month->september, game->graphics->month->position);
 	game->graphics->month->september->instances[0].enabled = false;
-	display_texture(game, &game->graphics->month->october, 0, game->map->width / 2 - 1);
+	display_texture(game, &game->graphics->month->october, game->graphics->month->position);
 	game->graphics->month->october->instances[0].enabled = false;
-	display_texture(game, &game->graphics->month->november, 0, game->map->width / 2 - 1);
+	display_texture(game, &game->graphics->month->november, game->graphics->month->position);
 	game->graphics->month->november->instances[0].enabled = false;
-	display_texture(game, &game->graphics->month->december, 0, game->map->width / 2 - 1);
+	display_texture(game, &game->graphics->month->december, game->graphics->month->position);
 	game->graphics->month->december->instances[0].enabled = false;
 }
 

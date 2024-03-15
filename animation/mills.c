@@ -1,19 +1,19 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   mill.c                                             :+:      :+:    :+:   */
+/*   mills.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: aheitz <aheitz@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/14 12:14:09 by aheitz            #+#    #+#             */
-/*   Updated: 2024/03/14 12:36:42 by aheitz           ###   ########.fr       */
+/*   Updated: 2024/03/15 15:26:20 by aheitz           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../so_long.h"
 
 // ? Allocates and loads textures for the mill
-void	load_mill_texture(t_game *game)
+void	load_mills_textures(t_game *game)
 {
 	game->graphics->mill = allocate(game, sizeof(t_mill), MILL_TEXTURE); //TODO : Changer le code d'erreur!
 	set_texture(game, &game->graphics->mill->first,
@@ -24,37 +24,23 @@ void	load_mill_texture(t_game *game)
 
 // ? Load the textures if they don't exist, add a mill to the counter,
 // ? and end up displaying every texture while disabling the second
-void	add_mill(t_game *game, size_t y, size_t x)
+void	add_mill(t_game *game, t_position *position)
 {
 	if (!game->graphics->mill)
-		load_mill_texture(game);
+		load_mills_textures(game);
 	++game->map->mills;
-	{
-		display_texture(game, &game->graphics->mill->first, y, x);
-		display_texture(game, &game->graphics->mill->second, y, x);
-		game->graphics->mill->second->instances
-		[game->map->mills - 1].enabled = false;
-	}
+	display_texture(game, &game->graphics->mill->first, position);
+	display_and_disable(game, &game->graphics->mill->second,
+		position, game->map->mills - 1);
 }
 
 // ? For each pair of days, change the mill image to display the animation
 void	mill_animation(t_game *game)
 {
-	int	index;
-
-	index = 0;
-	while (index <= game->map->mills)
-	{
-		if (game->day % 4 == 0)
-		{
-			game->graphics->mill->first->instances[index].enabled = false;
-			game->graphics->mill->second->instances[index].enabled = true;
-		}
-		else if (game->day % 2 == 0)
-		{
-			game->graphics->mill->second->instances[index].enabled = false;
-			game->graphics->mill->first->instances[index].enabled = true;
-		}
-		++index;
-	}
+	if (game->day % 4 == 0)
+		exchange_textures(game->graphics->mill->first,
+			game->graphics->mill->second, game->map->mills);
+	else if (game->day % 2 == 0)
+		exchange_textures(game->graphics->mill->second,
+			game->graphics->mill->first, game->map->mills);
 }

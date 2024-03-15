@@ -6,7 +6,7 @@
 #    By: aheitz <aheitz@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/01/09 16:39:50 by aheitz            #+#    #+#              #
-#    Updated: 2024/03/14 12:30:37 by aheitz           ###   ########.fr        #
+#    Updated: 2024/03/15 16:37:36 by aheitz           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -32,7 +32,9 @@ SRCS	:= get_next_line/get_next_line.c \
 		game/play.c \
 		animation/management.c \
 		animation/grass.c \
-		animation/mill.c \
+		animation/mills.c \
+		animation/instances.c \
+		animation/seasons.c \
 		main.c
 OBJS	:= ${SRCS:.c=.o}
 

@@ -6,7 +6,7 @@
 /*   By: aheitz <aheitz@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/08 19:46:42 by aheitz            #+#    #+#             */
-/*   Updated: 2024/03/14 13:03:45 by aheitz           ###   ########.fr       */
+/*   Updated: 2024/03/15 16:46:13 by aheitz           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,8 +48,8 @@ typedef struct s_map
 	size_t			width;
 	t_position		*spawn;
 	t_position		*exit;
+	t_position		*last_position;
 	t_list			*list;
-	t_path_counter	*grass_counter;
 }	t_map;
 
 typedef struct s_mill
@@ -66,28 +66,25 @@ typedef struct s_field
 	mlx_image_t	*winter;
 }	t_field;
 
-typedef struct s_grass_color
+typedef struct s_grass
 {
+	int			count;
 	mlx_image_t	*dark;
 	mlx_image_t	*light;
-}	t_grass_color;
+}	t_grass;
 
-typedef struct s_grass_path
+typedef struct s_ground
 {
-	t_grass_color	*simple;
-	t_grass_color	*left;
-	t_grass_color	*right;
-}	t_grass_path;
-
-typedef struct s_path_counter
-{
-	int	grass;
-	int	grass_left;
-	int	grass_right;
-}	t_path_counter;
+	t_grass		*simple_grass;
+	t_grass		*left_grass;
+	t_grass		*right_grass;
+	mlx_image_t	*snow;
+	int			count;
+}	t_ground;
 
 typedef struct s_month
 {
+	t_position	*position;
 	mlx_image_t	*january;
 	mlx_image_t	*february;
 	mlx_image_t	*march;
@@ -134,8 +131,7 @@ typedef struct s_graphics
 	mlx_image_t 	*two_snowy_rocks;
 	mlx_image_t 	*three_snowy_rocks;
 
-	mlx_image_t		*snow;
-	t_grass_path	*grass;
+	t_ground		*ground;
 	t_mill			*mill;
 	t_field			*field;
 	t_month			*month;
@@ -259,9 +255,9 @@ void	open_window(t_game *game);
 void	set_graphics(t_game *game);
 void	set_texture(t_game *game, mlx_image_t **target, const char *path);
 void	load_graphics(t_game *game);
-void	display_texture(t_game *game, mlx_image_t **texture, size_t x, size_t y);
-void	char_is_digit(t_game *game, size_t line, size_t column);
-void	char_is_uppercase(t_game *game, size_t line, size_t column);
+void	display_texture(t_game *game, mlx_image_t **texture, t_position *position);
+void	char_is_digit(t_game *game, t_position *position);
+void	char_is_uppercase(t_game *game, t_position *position);
 void	start_game(t_game *game);
 void	set_character(t_game *game);
 void	move_request(mlx_key_data_t key_data, void *param);
@@ -270,14 +266,29 @@ void	*start_animation(void *arg);
 
 void	fields_animation(t_game *game);
 void	grass_animation(t_game *game);
-void	char_is_lowercase(t_game *game, size_t line, size_t column);
+void	char_is_lowercase(t_game *game, t_position *position);
 
 void	months_animation(t_game *game);
 void	months_generation(t_game *game);
 void	grass_generation(t_game *game);
 
-void	add_mill(t_game *game, size_t y, size_t x);
+void	add_mill(t_game *game, t_position *position);
 void	load_mill_texture(t_game *game);
 void	mill_animation(t_game *game);
+void	display_instances(mlx_image_t *image, size_t count, bool is_displayed);
+void	display_and_disable(t_game *game, mlx_image_t **image,
+	t_position *position, size_t index);
+void	exchange_textures(mlx_image_t *old, mlx_image_t *new, size_t size);
+void	check_season(t_game *game);
+void	new_grass(t_game *game, t_position *position, char c);
+void	grass_initilization(t_game *game, t_grass **grass,
+	const char *dark, const char *light);
+void	add_grass(t_game *game, t_grass **grass,
+						t_position *position);
+void	check_season(t_game *game);
+void	first_fresh_season_is_here(t_ground *ground);
+void	hot_season_is_here(t_ground *ground);
+void	second_fresh_season_is_here(t_ground *ground);
+void	winter_is_here(t_ground *ground);
 
 #endif

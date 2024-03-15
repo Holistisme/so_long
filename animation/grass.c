@@ -6,71 +6,51 @@
 /*   By: aheitz <aheitz@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/13 12:49:48 by aheitz            #+#    #+#             */
-/*   Updated: 2024/03/14 13:08:41 by aheitz           ###   ########.fr       */
+/*   Updated: 2024/03/15 16:44:30 by aheitz           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../so_long.h"
 
-void	load_grass_texture(t_game *game)
+// * Manages new grass entries
+void	new_grass(t_game *game, t_position *position, char c)
 {
-	game->graphics->grass = allocate(game, sizeof(t_grass_path), GRASS_TEXTURE); //TODO : Changer le code d'erreur!
-	set_texture(game, &game->graphics->grass->simple,
-		"./textures/grass_simple.png");
-	set_texture(game, &game->graphics->snow,
-		"./textures/snow.png");
+	if (c == 'L')
+	{
+		if (!game->graphics->ground->left_grass)
+			grass_initilization(game, &game->graphics->ground->left_grass,
+				"./textures/grass/left_dark", "./textures/grass/left_light");
+		add_grass(game, &game->graphics->ground->left_grass, position);
+	}
+	if (c == 'R')
+	{
+		if (!game->graphics->ground->right_grass)
+			grass_initilization(game, &game->graphics->ground->right_grass,
+				"./textures/grass/right_dark", "./textures/grass/right_light");
+		add_grass(game, &game->graphics->ground->right_grass, position);
+	}
+	else
+		add_grass(game, &game->graphics->ground->simple_grass, position);
+	++game->graphics->ground->count;
+	display_texture(game, &game->graphics->ground->snow, position);
 }
 
-void	add_grass(t_game *game, size_t y, size_t x, char c)
+// ? Initialize graphics for a grass
+void	grass_initilization(t_game *game, t_grass **grass,
+	const char *dark, const char *light)
 {
-	if (!game->graphics->grass)
-		load_grass_texture(game);
-	if (c == '')
-	++game->map->mills;
-	{
-		display_texture(game, &game->graphics->mill->first, y, x);
-		display_texture(game, &game->graphics->mill->second, y, x);
-		game->graphics->mill->second->instances
-		[game->map->mills - 1].enabled = false;
-	}
+	(*grass) = NULL;
+	(*grass) = allocate(game, sizeof(t_grass), GRASS_TEXTURE); //TODO : Changer le code d'erreur!
+	(*grass)->count = 0;
+	set_texture(game, &(*grass)->dark, dark);
+	set_texture(game, &(*grass)->light, light);
 }
 
-void	grass_generation(t_game *game)
+// ? Adds the two colored grass graphics to the map
+void	add_grass(t_game *game, t_grass **grass,
+						t_position *position)
 {
-	int	index;
-
-	index = 0;
-	while (index <= game->map->grass)
-	{
-		game->graphics->grass->spring->instances[index].enabled = false;
-		game->graphics->grass->summer->instances[index].enabled = false;
-		++index;
-	}
-}
-
-void	grass_animation(t_game *game)
-{
-	int	index;
-
-	index = 0;
-	while (index <= game->map->grass)
-	{
-		if (game->day < 60 || game->day > 300)
-		{
-			game->graphics->grass->spring->instances[index].enabled = false;
-			game->graphics->grass->winter->instances[index].enabled = true;
-		}
-		else if (game->day > 240 || (game->day < 120 && game->day > 60))
-		{
-			game->graphics->grass->summer->instances[index].enabled = false;
-			game->graphics->grass->winter->instances[index].enabled = false;
-			game->graphics->grass->spring->instances[index].enabled = true;
-		}
-		else if (game->day > 120)
-		{
-			game->graphics->grass->winter->instances[index].enabled = false;
-			game->graphics->grass->summer->instances[index].enabled = true;
-		}
-		++index;
-	}
+	++(*grass)->count;
+	display_and_disable(game, &(*grass)->dark, position, (*grass)->count - 1);
+	display_and_disable(game, &(*grass)->light, position, (*grass)->count - 1);
 }

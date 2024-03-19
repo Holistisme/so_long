@@ -6,7 +6,7 @@
 /*   By: aheitz <aheitz@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/08 19:46:42 by aheitz            #+#    #+#             */
-/*   Updated: 2024/03/15 16:46:13 by aheitz           ###   ########.fr       */
+/*   Updated: 2024/03/19 15:15:23 by aheitz           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,6 +51,27 @@ typedef struct s_map
 	t_position		*last_position;
 	t_list			*list;
 }	t_map;
+
+typedef struct s_border
+{
+	mlx_image_t	*first;
+	mlx_image_t	*second;
+	mlx_image_t	*third;
+	mlx_image_t	*fourth;
+	mlx_image_t	*fifth;
+}	t_border;
+
+typedef struct s_paris
+{
+	mlx_image_t	*english;
+	mlx_image_t	*french;
+}	t_paris;
+
+typedef struct s_castle
+{
+	mlx_image_t	*english;
+	mlx_image_t	*french;
+}	t_castle;
 
 typedef struct s_mill
 {
@@ -130,18 +151,18 @@ typedef struct s_graphics
 	mlx_image_t 	*snowy_rock;
 	mlx_image_t 	*two_snowy_rocks;
 	mlx_image_t 	*three_snowy_rocks;
-
+	t_castle		*castle;
 	t_ground		*ground;
 	t_mill			*mill;
 	t_field			*field;
 	t_month			*month;
+	t_paris			*paris;
+	t_border		*border;
 }	t_graphics;
 
 typedef struct s_character
 {
-	mlx_image_t	*current_skin;
-	mlx_image_t **skin_tab;
-	size_t		skin_index;
+	mlx_image_t *skin;
 	t_position	*position;
 }				t_character;
 
@@ -277,18 +298,33 @@ void	load_mill_texture(t_game *game);
 void	mill_animation(t_game *game);
 void	display_instances(mlx_image_t *image, size_t count, bool is_displayed);
 void	display_and_disable(t_game *game, mlx_image_t **image,
-	t_position *position, size_t index);
+			t_position *position, size_t index);
 void	exchange_textures(mlx_image_t *old, mlx_image_t *new, size_t size);
 void	check_season(t_game *game);
 void	new_grass(t_game *game, t_position *position, char c);
 void	grass_initilization(t_game *game, t_grass **grass,
-	const char *dark, const char *light);
+			const char *dark, const char *light);
 void	add_grass(t_game *game, t_grass **grass,
-						t_position *position);
+			t_position *position);
 void	check_season(t_game *game);
-void	first_fresh_season_is_here(t_ground *ground);
-void	hot_season_is_here(t_ground *ground);
-void	second_fresh_season_is_here(t_ground *ground);
-void	winter_is_here(t_ground *ground);
+void	first_fresh_season_is_here(t_game *game);
+void	hot_season_is_here(t_game *game);
+void	second_fresh_season_is_here(t_game *game);
+void	winter_is_here(t_game *game);
+void	new_field(t_game *game, t_position *position);
+void	field_initilization(t_game *game);
+void	add_field(t_game *game, t_position *position);
+void	load_months_textures(t_game *game);
+void	display_months(t_game *game);
+void	first_half_year(t_game *game);
+void	second_half_year(t_game *game);
+void	set_castle_textures(t_game *game);
+void	take_castle(t_game *game);
+int	get_castle_index(t_game *game);
+void	set_paris_textures(t_game *game);
+void	take_paris(t_game *game);
+char	get_random_grass(void);
+mlx_image_t	**get_random_border_texture(t_border *border);
+void	set_borders_textures(t_game *game);
 
 #endif

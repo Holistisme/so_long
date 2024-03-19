@@ -6,7 +6,7 @@
 /*   By: aheitz <aheitz@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/27 11:36:36 by aheitz            #+#    #+#             */
-/*   Updated: 2024/03/15 16:31:52 by aheitz           ###   ########.fr       */
+/*   Updated: 2024/03/19 15:17:15 by aheitz           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,8 +14,8 @@
 
 void	char_is_digit(t_game *game, t_position *position)
 {
-	if (game->map->cells[position->y][position->x] == '0')
-		new_grass(game, position, game->map->cells[position->y][position->x]);
+	if (is_inside(game->map->cells[position->y][position->x], "0"))
+		new_grass(game, position, get_random_grass());
 	else if (game->map->cells[position->y][position->x] == '1')
 		display_texture(game, &game->graphics->limit, position);
 	else if (game->map->cells[position->y][position->x] == '2')
@@ -40,9 +40,15 @@ void	char_is_uppercase(t_game *game, t_position *position)
 	else if (game->map->cells[position->y][position->x] == 'P')
 		display_texture(game, &game->graphics->house, position);
 	else if (game->map->cells[position->y][position->x] == 'C')
-		display_texture(game, &game->graphics->battle, position);
+	{
+		display_and_disable(game, &game->graphics->castle->french, position, game->map->collectibles);
+		display_texture(game, &game->graphics->castle->english, position);
+	}
 	else if (game->map->cells[position->y][position->x] == 'E')
-		display_texture(game, &game->graphics->tower, position);
+	{
+		display_and_disable(game, &game->graphics->paris->french, position, 0);
+		display_texture(game, &game->graphics->paris->english, position);
+	}
 	else if (game->map->cells[position->y][position->x] == 'U')
 		display_texture(game, &game->graphics->pine, position);
 	else if (game->map->cells[position->y][position->x] == 'I')
@@ -74,14 +80,11 @@ void	char_is_uppercase(t_game *game, t_position *position)
 	else if (game->map->cells[position->y][position->x] == 'Z')
 		display_texture(game, &game->graphics->two_snowy_rocks, position);
 	else if (game->map->cells[position->y][position->x] == 'V')
-		display_texture(game, &game->graphics->three_snowy_rocks, position);
+		display_texture(game, &game->graphics->border->second, position);
 	else if (game->map->cells[position->y][position->x] == 'F')
-	{
-		display_texture(game, &game->graphics->field->spring, position);
-		display_texture(game, &game->graphics->field->summer, position);
-		display_texture(game, &game->graphics->field->fall, position);
-		display_texture(game, &game->graphics->field->winter, position);
-	}
+		new_field(game, position);
 	else if (game->map->cells[position->y][position->x] == 'M')
 		add_mill(game, position);
+	else if (game->map->cells[position->y][position->x] == 'B')
+		display_texture(game, get_random_border_texture(game->graphics->border), position);
 }

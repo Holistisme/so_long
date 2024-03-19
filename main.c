@@ -6,7 +6,7 @@
 /*   By: aheitz <aheitz@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/09 16:39:44 by aheitz            #+#    #+#             */
-/*   Updated: 2024/02/27 17:47:15 by aheitz           ###   ########.fr       */
+/*   Updated: 2024/03/19 11:07:37 by aheitz           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,7 @@ int	main(int argc, char **argv)
 {
 	t_game	*game;
 
+	srand(time(NULL)); // Utilisez la fonction time(NULL) pour initialiser le générateur avec une graine différente à chaque exécution
 	check_program_argument(argc, argv);
 	game = NULL;
 	game = allocate(NULL, sizeof(t_game), 3);

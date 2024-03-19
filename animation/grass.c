@@ -6,7 +6,7 @@
 /*   By: aheitz <aheitz@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/13 12:49:48 by aheitz            #+#    #+#             */
-/*   Updated: 2024/03/15 16:44:30 by aheitz           ###   ########.fr       */
+/*   Updated: 2024/03/18 11:39:07 by aheitz           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,14 +19,16 @@ void	new_grass(t_game *game, t_position *position, char c)
 	{
 		if (!game->graphics->ground->left_grass)
 			grass_initilization(game, &game->graphics->ground->left_grass,
-				"./textures/grass/left_dark", "./textures/grass/left_light");
+				"./textures/grass/left_dark.png",
+				"./textures/grass/left_light.png");
 		add_grass(game, &game->graphics->ground->left_grass, position);
 	}
-	if (c == 'R')
+	else if (c == 'R')
 	{
 		if (!game->graphics->ground->right_grass)
 			grass_initilization(game, &game->graphics->ground->right_grass,
-				"./textures/grass/right_dark", "./textures/grass/right_light");
+				"./textures/grass/right_dark.png",
+				"./textures/grass/right_light.png");
 		add_grass(game, &game->graphics->ground->right_grass, position);
 	}
 	else
@@ -47,8 +49,7 @@ void	grass_initilization(t_game *game, t_grass **grass,
 }
 
 // ? Adds the two colored grass graphics to the map
-void	add_grass(t_game *game, t_grass **grass,
-						t_position *position)
+void	add_grass(t_game *game, t_grass **grass, t_position *position)
 {
 	++(*grass)->count;
 	display_and_disable(game, &(*grass)->dark, position, (*grass)->count - 1);

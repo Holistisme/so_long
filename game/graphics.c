@@ -6,7 +6,7 @@
 /*   By: aheitz <aheitz@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/26 14:51:31 by aheitz            #+#    #+#             */
-/*   Updated: 2024/03/15 16:36:29 by aheitz           ###   ########.fr       */
+/*   Updated: 2024/03/19 15:14:03 by aheitz           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,25 +44,8 @@ void	set_graphics(t_game *game)
 	set_texture(game, &game->graphics->snowy_rock, "./textures/snowy_rock.png");
 	set_texture(game, &game->graphics->two_snowy_rocks, "./textures/two_snowy_rocks.png");
 	set_texture(game, &game->graphics->three_snowy_rocks, "./textures/three_snowy_rocks.png");
-	set_texture(game, &game->graphics->field->spring, "./textures/field_spring.png");
-	set_texture(game, &game->graphics->field->summer, "./textures/field_summer.png");
-	set_texture(game, &game->graphics->field->fall, "./textures/field_fall.png");
-	set_texture(game, &game->graphics->field->winter, "./textures/field_winter.png");
-
 	set_texture(game, &game->graphics->ground->snow,
 			"./textures/snow.png");
-	set_texture(game, &game->graphics->month->january, "./textures/months/january.png");
-	set_texture(game, &game->graphics->month->february, "./textures/months/february.png");
-	set_texture(game, &game->graphics->month->march, "./textures/months/march.png");
-	set_texture(game, &game->graphics->month->april, "./textures/months/april.png");
-	set_texture(game, &game->graphics->month->may, "./textures/months/may.png");
-	set_texture(game, &game->graphics->month->june, "./textures/months/june.png");
-	set_texture(game, &game->graphics->month->july, "./textures/months/july.png");
-	set_texture(game, &game->graphics->month->august, "./textures/months/august.png");
-	set_texture(game, &game->graphics->month->september, "./textures/months/september.png");
-	set_texture(game, &game->graphics->month->october, "./textures/months/october.png");
-	set_texture(game, &game->graphics->month->november, "./textures/months/november.png");
-	set_texture(game, &game->graphics->month->december, "./textures/months/december.png");
 }
 
 // ? Assigns each texture to an address while releasing this first after action
@@ -89,17 +72,16 @@ void	load_graphics(t_game *game)
 		game->map->last_position->x = 0;
 		while (game->map->cells[game->map->last_position->y][game->map->last_position->x])
 		{
-			if (is_inside(game->map->cells[game->map->last_position->y][game->map->last_position->x], "01234"))
+			if (is_inside(game->map->cells[game->map->last_position->y][game->map->last_position->x], "01234LR"))
 				char_is_digit(game, game->map->last_position);
 			else if (is_inside(game->map->cells[game->map->last_position->y][game->map->last_position->x], "abcdefg"))
 				char_is_lowercase(game, game->map->last_position);
-			else if (is_inside(game->map->cells[game->map->last_position->y][game->map->last_position->x], "XPCEUIOHJKLQWRTYASDFGZVM"))
+			else if (is_inside(game->map->cells[game->map->last_position->y][game->map->last_position->x], "XPCEUIOHJKQWTYABSDFGZVM"))
 				char_is_uppercase(game, game->map->last_position);
 			++game->map->last_position->x;
 		}
 		++game->map->last_position->y;
 	}
-	game->graphics->mill->second->instances->enabled = false;
 }
 
 // ? Simplifies the display of a graphic

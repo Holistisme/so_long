@@ -6,7 +6,7 @@
 /*   By: aheitz <aheitz@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/07 17:25:42 by aheitz            #+#    #+#             */
-/*   Updated: 2024/03/15 16:25:14 by aheitz           ###   ########.fr       */
+/*   Updated: 2024/03/19 15:20:15 by aheitz           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,21 +18,28 @@ void	set_game(t_game *game)
 	pthread_t	animation;
 
 	open_window(game);
+	game->map->last_position = allocate(game, sizeof(t_position), 0); // ! HERESY
 	game->map->mills = 0;
-	game->graphics->ground = NULL;
+	game->graphics = allocate(game, sizeof(t_graphics), 0); // TODO CHANGER ERREUR
 	game->graphics->ground = allocate(game, sizeof(t_ground), 0); // TODO CHANGER ERREUR
 	game->graphics->ground->count = 0;
-	game->graphics->ground->simple_grass = allocate(game, sizeof(t_grass), 0); // TODO CHANGER ERREUR
-	game->graphics->ground->simple_grass->count = 0;
-	set_texture(game, &game->graphics->ground->simple_grass->dark, "./textures/grass/simple_dark");
-	set_texture(game, &game->graphics->ground->simple_grass->light, "./textures/grass/simple_light");
-	game->graphics = allocate(game, sizeof(t_graphics), GRAPHICS_ALLOCATION);
-	game->graphics->field = allocate(game, sizeof(t_field), 0); // TODO CHANGER ERREUR
 	game->graphics->month = allocate(game, sizeof(t_month), 0); // TODO CHANGER ERREUR
-	game->graphics->mill = NULL; // ! Verifier si necessaire!
+	game->graphics->month->position = allocate(game, sizeof(t_position), MILL_TEXTURE); //TODO : Changer le code d'erreur!
+	game->graphics->month->position->y = 0;
+	game->graphics->month->position->x = game->map->width / 2 - 1;
+	game->graphics->mill = NULL;
+	game->graphics->field = NULL;
+	game->graphics->ground->simple_grass = NULL;
+	game->graphics->ground->left_grass = NULL;
+	game->graphics->ground->right_grass = NULL;
+	grass_initilization(game, &game->graphics->ground->simple_grass, "./textures/grass/simple_dark.png", "./textures/grass/simple_light.png");
 	set_graphics(game);
+	set_castle_textures(game);
+	set_paris_textures(game);
+	set_borders_textures(game);
 	game->day = 0;
 	load_graphics(game);
+	display_months(game);
 	set_character(game);
 	pthread_create(&animation, NULL, start_animation, game);
 	mlx_key_hook(game->window, move_request, game);

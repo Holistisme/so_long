@@ -1,36 +1,26 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   management.c                                       :+:      :+:    :+:   */
+/*   random.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: aheitz <aheitz@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/03/13 09:36:51 by aheitz            #+#    #+#             */
-/*   Updated: 2024/03/18 15:26:33 by aheitz           ###   ########.fr       */
+/*   Created: 2024/03/19 11:08:06 by aheitz            #+#    #+#             */
+/*   Updated: 2024/03/19 14:38:31 by aheitz           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../so_long.h"
 
-void	*start_animation(void *arg)
+char	get_random_grass(void)
 {
-	t_game	*game;
+	int	probability;
 
-	game = arg;
-	while (1)
-	{
-		check_season(game);
-		if (game->graphics->mill)
-			mill_animation(game);
-		if (game->day < 180)
-			first_half_year(game);
-		if (game->day > 150)
-			second_half_year(game);
-		++game->day;
-		if (game->day > 360)
-			game->day = 0;
-		usleep(250000);
-		printf("DAY : %zu\n", game->day);
-	}
-	return (NULL);
+	probability = rand() % 100;
+	if (probability < 5)
+		return ('L');
+	else if (probability < 10)
+		return ('R');
+	else
+		return ('S');
 }

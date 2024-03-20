@@ -6,7 +6,7 @@
 /*   By: aheitz <aheitz@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/27 11:36:36 by aheitz            #+#    #+#             */
-/*   Updated: 2024/03/19 15:17:15 by aheitz           ###   ########.fr       */
+/*   Updated: 2024/03/20 15:09:45 by aheitz           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,12 +71,8 @@ void	char_is_uppercase(t_game *game, t_position *position)
 		display_texture(game, &game->graphics->two_plain_rocks, position);
 	else if (game->map->cells[position->y][position->x] == 'A')
 		display_texture(game, &game->graphics->three_plain_rocks, position);
-	else if (game->map->cells[position->y][position->x] == 'S')
-		display_texture(game, &game->graphics->hill_rock, position);
 	else if (game->map->cells[position->y][position->x] == 'D')
 		display_texture(game, &game->graphics->two_hill_rocks, position);
-	else if (game->map->cells[position->y][position->x] == 'G')
-		display_texture(game, &game->graphics->snowy_rock, position);
 	else if (game->map->cells[position->y][position->x] == 'Z')
 		display_texture(game, &game->graphics->two_snowy_rocks, position);
 	else if (game->map->cells[position->y][position->x] == 'V')

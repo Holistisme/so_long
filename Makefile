@@ -6,7 +6,7 @@
 #    By: aheitz <aheitz@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/01/09 16:39:50 by aheitz            #+#    #+#              #
-#    Updated: 2024/03/19 14:39:38 by aheitz           ###   ########.fr        #
+#    Updated: 2024/03/20 11:18:12 by aheitz           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -41,6 +41,8 @@ SRCS	:= get_next_line/get_next_line.c \
 		graphics/paris.c \
 		graphics/random.c \
 		graphics/borders.c \
+		graphics/mountains.c \
+		animation/guards.c \
 		main.c
 OBJS	:= ${SRCS:.c=.o}
 

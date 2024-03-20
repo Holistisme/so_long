@@ -6,7 +6,7 @@
 /*   By: aheitz <aheitz@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/17 22:42:35 by aheitz            #+#    #+#             */
-/*   Updated: 2024/03/19 14:40:17 by aheitz           ###   ########.fr       */
+/*   Updated: 2024/03/20 15:48:13 by aheitz           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@ void	scan_cells_elements(t_game *game)
 		x = 1;
 		while (game->map->cells[y][x + 1])
 		{
-			if (!is_inside(game->map->cells[y][x], "01234abcdefCPEXUIOHJKLQWRTYASDFGZVMB"))
+			if (!is_inside(game->map->cells[y][x], "01234abcdefCPEXUIOHJKLQWRTYASDFGZVMB^.|{}"))
 				error_occurred(game, 13);
 			save_element(game, x++, y);
 		}

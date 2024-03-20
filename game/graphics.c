@@ -6,7 +6,7 @@
 /*   By: aheitz <aheitz@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/26 14:51:31 by aheitz            #+#    #+#             */
-/*   Updated: 2024/03/19 15:14:03 by aheitz           ###   ########.fr       */
+/*   Updated: 2024/03/20 15:49:40 by aheitz           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,8 +76,25 @@ void	load_graphics(t_game *game)
 				char_is_digit(game, game->map->last_position);
 			else if (is_inside(game->map->cells[game->map->last_position->y][game->map->last_position->x], "abcdefg"))
 				char_is_lowercase(game, game->map->last_position);
-			else if (is_inside(game->map->cells[game->map->last_position->y][game->map->last_position->x], "XPCEUIOHJKQWTYABSDFGZVM"))
+			else if (is_inside(game->map->cells[game->map->last_position->y][game->map->last_position->x], "XPCEUIOHJKQWTYABSDFZVM"))
 				char_is_uppercase(game, game->map->last_position);
+			else if (is_inside(game->map->cells[game->map->last_position->y][game->map->last_position->x], "/~^\\"))
+				display_mountain(game, game->map->cells[game->map->last_position->y][game->map->last_position->x], game->map->last_position);
+			++game->map->last_position->x;
+		}
+		++game->map->last_position->y;
+	}
+	game->map->last_position->y = 0;
+	while (game->map->cells[game->map->last_position->y])
+	{
+		game->map->last_position->x = 0;
+		while (game->map->cells[game->map->last_position->y][game->map->last_position->x])
+		{
+			if (is_inside(game->map->cells[game->map->last_position->y][game->map->last_position->x], ".|{}"))
+			{
+				new_grass(game, game->map->last_position, '0'); //? WTF
+				add_guard(game);
+			}
 			++game->map->last_position->x;
 		}
 		++game->map->last_position->y;

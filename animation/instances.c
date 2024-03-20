@@ -6,7 +6,7 @@
 /*   By: aheitz <aheitz@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/15 14:33:35 by aheitz            #+#    #+#             */
-/*   Updated: 2024/03/15 16:45:03 by aheitz           ###   ########.fr       */
+/*   Updated: 2024/03/19 17:32:42 by aheitz           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@ void	display_instances(mlx_image_t *image, size_t count, bool is_displayed)
 	size_t	index;
 
 	index = 0;
-	while (index <= count)
+	while (index < count)
 		image->instances[index++].enabled = is_displayed;
 }
 

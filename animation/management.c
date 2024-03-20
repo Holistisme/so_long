@@ -6,7 +6,7 @@
 /*   By: aheitz <aheitz@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/13 09:36:51 by aheitz            #+#    #+#             */
-/*   Updated: 2024/03/18 15:26:33 by aheitz           ###   ########.fr       */
+/*   Updated: 2024/03/20 11:49:11 by aheitz           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,7 @@ void	*start_animation(void *arg)
 	game = arg;
 	while (1)
 	{
+		guard_waiting(game);
 		check_season(game);
 		if (game->graphics->mill)
 			mill_animation(game);

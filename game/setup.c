@@ -6,7 +6,7 @@
 /*   By: aheitz <aheitz@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/07 17:25:42 by aheitz            #+#    #+#             */
-/*   Updated: 2024/03/19 15:20:15 by aheitz           ###   ########.fr       */
+/*   Updated: 2024/03/20 14:29:51 by aheitz           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,6 +37,8 @@ void	set_game(t_game *game)
 	set_castle_textures(game);
 	set_paris_textures(game);
 	set_borders_textures(game);
+	set_moutains_textures(game);
+	set_guards_textures(game);
 	game->day = 0;
 	load_graphics(game);
 	display_months(game);
@@ -50,7 +52,7 @@ void	set_game(t_game *game)
 void	open_window(t_game *game)
 {
 	game->window = mlx_init(game->map->width * 64,
-			game->map->height * 64, "Journey of Joan Of Arc", true);
+			game->map->height * 64, "pucelle.exe", true);
 	if (!game->window)
 		error_occurred(game, WINDOW_ALLOCATION);
 }

@@ -6,7 +6,7 @@
 /*   By: aheitz <aheitz@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/08 19:46:42 by aheitz            #+#    #+#             */
-/*   Updated: 2024/03/19 15:15:23 by aheitz           ###   ########.fr       */
+/*   Updated: 2024/03/20 15:35:37 by aheitz           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -94,6 +94,14 @@ typedef struct s_grass
 	mlx_image_t	*light;
 }	t_grass;
 
+typedef struct s_mountain
+{
+	mlx_image_t	*middle;
+	mlx_image_t	*left;
+	mlx_image_t	*right;
+	mlx_image_t	*peak;
+}	t_mountain;
+
 typedef struct s_ground
 {
 	t_grass		*simple_grass;
@@ -102,6 +110,29 @@ typedef struct s_ground
 	mlx_image_t	*snow;
 	int			count;
 }	t_ground;
+
+typedef struct s_block
+{
+	mlx_image_t	*short_range;
+	mlx_image_t	*medium_range;
+	mlx_image_t	*long_range;
+}	t_block;
+
+typedef struct s_wait
+{
+	mlx_image_t	*back;
+	mlx_image_t	*front;
+	mlx_image_t	*left;
+	mlx_image_t	*right; 
+}	t_wait;
+
+typedef struct s_guard
+{
+	int		image;
+	size_t	count;
+	t_wait	*wait;
+	t_block	*block_left;
+}	t_guard;
 
 typedef struct s_month
 {
@@ -158,6 +189,8 @@ typedef struct s_graphics
 	t_month			*month;
 	t_paris			*paris;
 	t_border		*border;
+	t_mountain		*mountain;
+	t_guard		*guards;
 }	t_graphics;
 
 typedef struct s_character
@@ -174,6 +207,7 @@ typedef struct s_game
 	t_graphics	*graphics;
 	t_character	*character;
 	size_t		day;
+	mlx_image_t *victory;
 }	t_game;
 
 // * The enumeration for error codes
@@ -326,5 +360,13 @@ void	take_paris(t_game *game);
 char	get_random_grass(void);
 mlx_image_t	**get_random_border_texture(t_border *border);
 void	set_borders_textures(t_game *game);
+void	set_moutains_textures(t_game *game);
+void	display_mountain(t_game *game, char c, t_position *position);
+void	set_guards_textures(t_game *game);
+void	add_guard(t_game *game);
+void	guard_waiting(t_game *game);
+void	display_character_texture(t_game *game, mlx_image_t **texture, t_position *position);
+void	display_and_disable_character(t_game *game, mlx_image_t **image,
+	t_position *position, size_t index);
 
 #endif

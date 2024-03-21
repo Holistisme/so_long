@@ -6,7 +6,7 @@
 /*   By: aheitz <aheitz@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/26 14:51:31 by aheitz            #+#    #+#             */
-/*   Updated: 2024/03/20 15:49:40 by aheitz           ###   ########.fr       */
+/*   Updated: 2024/03/21 14:48:11 by aheitz           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,39 +65,39 @@ void	set_texture(t_game *game, mlx_image_t **target, const char *path)
 // ? Traverses cells and calls subfunctions to load graphics
 void	load_graphics(t_game *game)
 {
-	game->map->last_position = allocate(game, sizeof(t_position), 0); //TODO : Changer le code d'erreur!
-	game->map->last_position->y = 0;
-	while (game->map->cells[game->map->last_position->y])
+	game->map->position_scan = allocate(game, sizeof(t_position), 0); //TODO : Changer le code d'erreur!
+	game->map->position_scan->y = 0;
+	while (game->map->cells[game->map->position_scan->y])
 	{
-		game->map->last_position->x = 0;
-		while (game->map->cells[game->map->last_position->y][game->map->last_position->x])
+		game->map->position_scan->x = 0;
+		while (game->map->cells[game->map->position_scan->y][game->map->position_scan->x])
 		{
-			if (is_inside(game->map->cells[game->map->last_position->y][game->map->last_position->x], "01234LR"))
-				char_is_digit(game, game->map->last_position);
-			else if (is_inside(game->map->cells[game->map->last_position->y][game->map->last_position->x], "abcdefg"))
-				char_is_lowercase(game, game->map->last_position);
-			else if (is_inside(game->map->cells[game->map->last_position->y][game->map->last_position->x], "XPCEUIOHJKQWTYABSDFZVM"))
-				char_is_uppercase(game, game->map->last_position);
-			else if (is_inside(game->map->cells[game->map->last_position->y][game->map->last_position->x], "/~^\\"))
-				display_mountain(game, game->map->cells[game->map->last_position->y][game->map->last_position->x], game->map->last_position);
-			++game->map->last_position->x;
+			if (is_inside(game->map->cells[game->map->position_scan->y][game->map->position_scan->x], "01234LR"))
+				char_is_digit(game, game->map->position_scan);
+			else if (is_inside(game->map->cells[game->map->position_scan->y][game->map->position_scan->x], "abcdefg"))
+				char_is_lowercase(game, game->map->position_scan);
+			else if (is_inside(game->map->cells[game->map->position_scan->y][game->map->position_scan->x], "XPCEUIOHJKQWTYABSDFZVM"))
+				char_is_uppercase(game, game->map->position_scan);
+			else if (is_inside(game->map->cells[game->map->position_scan->y][game->map->position_scan->x], "/~^\\"))
+				display_mountain(game, game->map->cells[game->map->position_scan->y][game->map->position_scan->x], game->map->position_scan);
+			++game->map->position_scan->x;
 		}
-		++game->map->last_position->y;
+		++game->map->position_scan->y;
 	}
-	game->map->last_position->y = 0;
-	while (game->map->cells[game->map->last_position->y])
+	game->map->position_scan->y = 0;
+	while (game->map->cells[game->map->position_scan->y])
 	{
-		game->map->last_position->x = 0;
-		while (game->map->cells[game->map->last_position->y][game->map->last_position->x])
+		game->map->position_scan->x = 0;
+		while (game->map->cells[game->map->position_scan->y][game->map->position_scan->x])
 		{
-			if (is_inside(game->map->cells[game->map->last_position->y][game->map->last_position->x], ".|{}"))
+			if (is_inside(game->map->cells[game->map->position_scan->y][game->map->position_scan->x], ".|{}"))
 			{
-				new_grass(game, game->map->last_position, '0'); //? WTF
+				new_grass(game, game->map->position_scan, '0'); //? WTF
 				add_guard(game);
 			}
-			++game->map->last_position->x;
+			++game->map->position_scan->x;
 		}
-		++game->map->last_position->y;
+		++game->map->position_scan->y;
 	}
 }
 

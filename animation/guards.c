@@ -6,7 +6,7 @@
 /*   By: aheitz <aheitz@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/19 16:55:14 by aheitz            #+#    #+#             */
-/*   Updated: 2024/03/20 16:18:04 by aheitz           ###   ########.fr       */
+/*   Updated: 2024/03/21 16:52:27 by aheitz           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,60 +30,31 @@ void	set_guards_textures(t_game *game)
 
 void	add_guard(t_game *game)
 {
-	display_character_texture(game, &game->graphics->guards->wait->front, game->map->last_position);
-	display_and_disable_character(game, &game->graphics->guards->wait->left, game->map->last_position, game->graphics->guards->count);
-	display_and_disable_character(game, &game->graphics->guards->wait->right, game->map->last_position, game->graphics->guards->count);
-	display_and_disable_character(game, &game->graphics->guards->wait->back, game->map->last_position, game->graphics->guards->count);
-	display_and_disable_character(game, &game->graphics->guards->block_left->short_range, game->map->last_position, game->graphics->guards->count);
-	display_and_disable_character(game, &game->graphics->guards->block_left->medium_range, game->map->last_position, game->graphics->guards->count);
-	display_and_disable_character(game, &game->graphics->guards->block_left->long_range, game->map->last_position, game->graphics->guards->count);
+	display_character_texture(game, &game->graphics->guards->wait->front, game->map->position_scan);
+	display_and_disable_character(game, &game->graphics->guards->wait->left, game->map->position_scan, game->graphics->guards->count);
+	display_and_disable_character(game, &game->graphics->guards->wait->right, game->map->position_scan, game->graphics->guards->count);
+	display_and_disable_character(game, &game->graphics->guards->wait->back, game->map->position_scan, game->graphics->guards->count);
+	display_and_disable_blocking(game, &game->graphics->guards->block_left->short_range, game->map->position_scan, game->graphics->guards->count);
+	display_and_disable_blocking(game, &game->graphics->guards->block_left->medium_range, game->map->position_scan, game->graphics->guards->count);
+	display_and_disable_blocking(game, &game->graphics->guards->block_left->long_range, game->map->position_scan, game->graphics->guards->count);
 	++game->graphics->guards->count;
 }
 
-void	guard_waiting(t_game *game)
+void	guard_waiting(t_game *game, t_guard *guard, size_t index)
 {
 	int		probability;
-	size_t	index;
 
-	index = 0;
-	if (game->graphics->guards->image == 5)
-	{
-		display_instances(game->graphics->guards->wait->back, game->graphics->guards->count, false);
-		display_instances(game->graphics->guards->wait->front, game->graphics->guards->count, false);
-		display_instances(game->graphics->guards->wait->left, game->graphics->guards->count, false);
-		display_instances(game->graphics->guards->wait->right, game->graphics->guards->count, false);
-		while (index < game->graphics->guards->count)
-		{
-			probability = rand() % 100;
-			if (probability < 25)
-			{
-				//game->graphics->guards->wait->current->instances[index].enabled = false;
-				game->graphics->guards->wait->back->instances[index++].enabled = true;
-				//game->graphics->guards->wait->current = game->graphics->guards->wait->back;
-			}
-			else if (probability < 50)
-			{
-				//game->graphics->guards->wait->current->instances[index].enabled = false;
-				game->graphics->guards->wait->front->instances[index++].enabled = true;
-				//game->graphics->guards->wait->current = game->graphics->guards->wait->front;
-			}
-			else if (probability < 75)
-			{
-				//game->graphics->guards->wait->current->instances[index].enabled = false;
-				game->graphics->guards->wait->left->instances[index++].enabled = true;
-				//game->graphics->guards->wait->current = game->graphics->guards->wait->left;
-			}
-			else
-			{
-				//game->graphics->guards->wait->current->instances[index].enabled = false;
-				game->graphics->guards->wait->right->instances[index++].enabled = true;
-				//game->graphics->guards->wait->current = game->graphics->guards->wait->right;
-			}
-		}
-		game->graphics->guards->image = 0;
-	}
+	stop_left_blocking(guard);
+	stop_left_waiting(guard);
+	probability = rand() % 100;
+	if (probability < 25)
+		game->graphics->guards->wait->back->instances[index].enabled = true;
+	else if (probability < 50)
+		game->graphics->guards->wait->front->instances[index].enabled = true;
+	else if (probability < 75)
+		game->graphics->guards->wait->left->instances[index].enabled = true;
 	else
-		++game->graphics->guards->image;
+		game->graphics->guards->wait->right->instances[index].enabled = true;
 }
 
 void	display_character_texture(t_game *game, mlx_image_t **texture, t_position *position)
@@ -98,94 +69,105 @@ void	display_and_disable_character(t_game *game, mlx_image_t **image,
 	(*image)->instances[index].enabled = false;
 }
 
-void	block(t_game *game)
+void	display_and_disable_blocking(t_game *game, mlx_image_t **image, t_position *position, size_t index)
 {
-	
+	mlx_image_to_window(game->window, *image, position->x * 64 - 32, position->y * 64);
+	(*image)->instances[index].enabled = false;
 }
 
-// void	spanish_stops_player(t_game *game)
-// {
-// 	stop_waiting(game);
-// 	if (game->day % 6 == 0)
-// 	{
-// 		display_instances(game->graphics->left_spanish->block->first, 1, true);
-// 		display_instances(game->graphics->left_spanish->block->second, 1, false);
-// 		display_instances(game->graphics->left_spanish->block->third, 1, false);
-// 	}
-// 	else if (game->day % 4 == 0)
-// 	{
-// 		display_instances(game->graphics->left_spanish->block->first, 1, false);
-// 		display_instances(game->graphics->left_spanish->block->second, 1, true);
-// 		display_instances(game->graphics->left_spanish->block->third, 1, false);
-// 	}
-// 	else if (game->day % 2 == 0)
-// 	{
-// 		display_instances(game->graphics->left_spanish->block->first, 1, false);
-// 		display_instances(game->graphics->left_spanish->block->second, 1, false);
-// 		display_instances(game->graphics->left_spanish->block->third, 1, true);
-// 	}
-// }
+void	guard_left_blocking(t_guard *guard)
+{
+	if (guard->block_left->long_range->instances[guard->index].enabled)
+		return ;
+	else if (guard->block_left->medium_range->instances[guard->index].enabled)
+		exchange_an_instance(guard->block_left->medium_range, guard->block_left->long_range, guard->index);
+	else if (guard->block_left->short_range->instances[guard->index].enabled)
+		exchange_an_instance(guard->block_left->short_range, guard->block_left->medium_range, guard->index);
+	else
+	{
+		stop_left_waiting(guard);
+		display_an_instance(guard->block_left->short_range, guard->index, true);
+	}
+}
 
-// void	stop_blocking(t_game *game)
-// {
-// 	display_instances(game->graphics->left_spanish->block->first, 1, false);
-// 	display_instances(game->graphics->left_spanish->block->second, 1, false);
-// 	display_instances(game->graphics->left_spanish->block->third, 1, false);
-// }
+void	stop_left_blocking(t_guard *guard)
+{
+	display_an_instance(guard->block_left->short_range, guard->index, false);
+	display_an_instance(guard->block_left->medium_range, guard->index, false);
+	display_an_instance(guard->block_left->long_range, guard->index, false);
+}
 
-// void	stop_waiting(t_game *game)
-// {
-// 	display_instances(game->graphics->left_spanish->first, 1, false);
-// 	display_instances(game->graphics->left_spanish->second, 1, false);
-// 	display_instances(game->graphics->left_spanish->third, 1, false);
-// 	display_instances(game->graphics->left_spanish->fourth, 1, false);
-// 	display_instances(game->graphics->left_spanish->fifth, 1, false);
-// }
+void	exchange_an_instance(mlx_image_t *old, mlx_image_t *new, size_t index)
+{
+	display_an_instance(old, index, false);
+	display_an_instance(new, index, true);
+}
+
+void	display_an_instance(mlx_image_t *target, size_t index, bool is_displayed)
+{
+	target->instances[index].enabled = is_displayed;
+}
+
+void	stop_left_waiting(t_guard *guard)
+{
+	if (guard->wait->back->instances[guard->index].enabled)
+		display_an_instance(guard->wait->back, guard->index, false);
+	else if (guard->wait->front->instances[guard->index].enabled)
+		display_an_instance(guard->wait->front, guard->index, false);
+	else if (guard->wait->left->instances[guard->index].enabled)
+		display_an_instance(guard->wait->left, guard->index, false);
+	else if (guard->wait->right->instances[guard->index].enabled)
+		display_an_instance(guard->wait->right, guard->index, false);
+}
 
 int	is_player_near(t_game *game)
-{
-	int	y;
-	int	x;
-
-	position = allocate(game, sizeof(t_position), 0); // TODO CHANGER ERREUR
-	y = -3;
-	x = -3;
-	while (y < 4)
-	{
-		while (x < 4)
-		if (game->character->position->y / 64 == game-> - 1)
-			return (1);
-	}
-		
-	return (0);
-}
-
-int	is_guards_near(t_game *game)
-{
-	game->map->last_position->y = 0;
-	while (game->map->last_position->y)
-	{
-		game->map->last_position->x = 0;
-		while (game->map->cells[game->map->last_position->y][game->map->last_position->x])
-		{
-			if (is_inside(game->map->cells[game->map->last_position->y][game->map->last_position->x], "{}.|"))
-			{
-				
-			}
-			++game->map->last_position->x;
-		}
-		++game->map->last_position->y;
-	}
-	return (0);
-}
-
-int	is_near(t_game *game)
 {
 	int	distance_y;
 	int	distance_x;
 
-	distance_y = game->map->last_position->y - game->character->position->y;
-	distance_x = game->map->last_position->x - game->character->position->x;
-	if (distance_y < 3 && distance_x < 3)
+	distance_y = game->map->position_scan->y
+		- game->character->position->y / 64;
+	distance_x = game->map->position_scan->x
+		- game->character->position->x / 64;
+	if (distance_y < 3 && distance_y > -3 && distance_x < 3 && distance_x > -3)
 		return (1);
+	return (0);
+}
+
+void	guards_animation(t_game *game)
+{
+	++game->graphics->guards->image;
+	if (game->graphics->guards->image != 5)
+		return ;
+	game->map->position_scan->y = 1;
+	game->graphics->guards->index = 0;
+	while (game->map->position_scan->y < game->map->height - 1)
+	{
+		game->map->position_scan->x = 1;
+		while (game->map->position_scan->x < game->map->width)
+		{
+			if (is_inside(game->map->cells[game->map->position_scan->y][game->map->position_scan->x], "{}.|"))
+				guard_order(game);
+			if (game->graphics->guards->index == game->graphics->guards->count - 1)
+			{
+				game->graphics->guards->image = 0;
+				return ;
+			}
+			++game->map->position_scan->x;
+		}
+		++game->map->position_scan->y;
+	}
+	game->graphics->guards->image = 0;
+}
+
+void	guard_order(t_game *game)
+{
+	if (is_player_near(game))
+	{
+		if (game->map->cells[game->map->position_scan->y][game->map->position_scan->x] == '{')
+			guard_left_blocking(game->graphics->guards);
+	}
+	else
+		guard_waiting(game, game->graphics->guards, game->graphics->guards->index);
+	++game->graphics->guards->index;
 }

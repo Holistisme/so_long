@@ -6,7 +6,7 @@
 /*   By: aheitz <aheitz@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/07 17:25:42 by aheitz            #+#    #+#             */
-/*   Updated: 2024/03/20 14:29:51 by aheitz           ###   ########.fr       */
+/*   Updated: 2024/03/21 14:46:12 by aheitz           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@ void	set_game(t_game *game)
 	pthread_t	animation;
 
 	open_window(game);
-	game->map->last_position = allocate(game, sizeof(t_position), 0); // ! HERESY
+	game->map->position_scan = allocate(game, sizeof(t_position), 0); // ! HERESY
 	game->map->mills = 0;
 	game->graphics = allocate(game, sizeof(t_graphics), 0); // TODO CHANGER ERREUR
 	game->graphics->ground = allocate(game, sizeof(t_ground), 0); // TODO CHANGER ERREUR

@@ -6,7 +6,7 @@
 /*   By: aheitz <aheitz@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/07 19:26:36 by aheitz            #+#    #+#             */
-/*   Updated: 2024/03/19 10:50:00 by aheitz           ###   ########.fr       */
+/*   Updated: 2024/03/21 11:37:22 by aheitz           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,23 +28,23 @@ void	move_request(mlx_key_data_t key_data, void *param)
 		mlx_close_window(game->window);
 	if (mlx_is_key_down(game->window, MLX_KEY_W) && !is_inside(game->map->cells[(game->character->position->y - 1) / 64][game->character->position->x / 64], "X1234"))
 	{
-		game->character->position->y -= 64;
-		game->character->skin->instances[0].y -= 64;
+		game->character->position->y -= 4;
+		game->character->skin->instances[0].y -= 4;
 	}
 	if (mlx_is_key_down(game->window, MLX_KEY_S) && !is_inside(game->map->cells[(game->character->position->y + 1) / 64][game->character->position->x / 64], "X1234"))
 	{
-		game->character->position->y += 64;
-		game->character->skin->instances[0].y += 64;
+		game->character->position->y += 4;
+		game->character->skin->instances[0].y += 4;
 	}
 	if (mlx_is_key_down(game->window, MLX_KEY_A) && !is_inside(game->map->cells[game->character->position->y / 64][(game->character->position->x - 1) / 64], "X1234"))
 	{
-		game->character->position->x -= 64;
-		game->character->skin->instances[0].x -= 64;
+		game->character->position->x -= 4;
+		game->character->skin->instances[0].x -= 4;
 	}
 	if (mlx_is_key_down(game->window, MLX_KEY_D) && !is_inside(game->map->cells[game->character->position->y / 64][(game->character->position->x + 1) / 64], "X1234"))
 	{
-		game->character->position->x += 64;
-		game->character->skin->instances[0].x += 64;
+		game->character->position->x += 4;
+		game->character->skin->instances[0].x += 4;
 	}
 	if (game->map->cells[(game->character->position->y / 64)][(game->character->position->x / 64)] == 'C' && game->graphics->castle->english->instances[get_castle_index(game)].enabled)
 	{

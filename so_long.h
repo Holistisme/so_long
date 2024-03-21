@@ -6,7 +6,7 @@
 /*   By: aheitz <aheitz@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/08 19:46:42 by aheitz            #+#    #+#             */
-/*   Updated: 2024/03/20 15:35:37 by aheitz           ###   ########.fr       */
+/*   Updated: 2024/03/21 16:33:45 by aheitz           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,7 +48,7 @@ typedef struct s_map
 	size_t			width;
 	t_position		*spawn;
 	t_position		*exit;
-	t_position		*last_position;
+	t_position		*position_scan;
 	t_list			*list;
 }	t_map;
 
@@ -129,7 +129,8 @@ typedef struct s_wait
 typedef struct s_guard
 {
 	int		image;
-	size_t	count;
+	int		index;
+	int		count;
 	t_wait	*wait;
 	t_block	*block_left;
 }	t_guard;
@@ -364,9 +365,18 @@ void	set_moutains_textures(t_game *game);
 void	display_mountain(t_game *game, char c, t_position *position);
 void	set_guards_textures(t_game *game);
 void	add_guard(t_game *game);
-void	guard_waiting(t_game *game);
 void	display_character_texture(t_game *game, mlx_image_t **texture, t_position *position);
 void	display_and_disable_character(t_game *game, mlx_image_t **image,
 	t_position *position, size_t index);
+void	guard_waiting(t_game *game, t_guard *guard, size_t index);
+void	guard_left_blocking(t_guard *guard);
+void	stop_left_blocking(t_guard *guard);
+void	stop_left_waiting(t_guard *guard);
+void	guards_animation(t_game *game);
+int	is_player_near(t_game *game);
+void	display_and_disable_blocking(t_game *game, mlx_image_t **image, t_position *position, size_t index);
+void	guard_order(t_game *game);
+void	exchange_an_instance(mlx_image_t *old, mlx_image_t *new, size_t index);
+void	display_an_instance(mlx_image_t *target, size_t index, bool is_displayed);
 
 #endif

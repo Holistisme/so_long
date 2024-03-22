@@ -6,7 +6,7 @@
 /*   By: aheitz <aheitz@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/08 19:46:42 by aheitz            #+#    #+#             */
-/*   Updated: 2024/03/21 16:33:45 by aheitz           ###   ########.fr       */
+/*   Updated: 2024/03/22 11:32:06 by aheitz           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -111,28 +111,31 @@ typedef struct s_ground
 	int			count;
 }	t_ground;
 
-typedef struct s_block
+typedef struct s_blocking
 {
-	mlx_image_t	*short_range;
-	mlx_image_t	*medium_range;
 	mlx_image_t	*long_range;
-}	t_block;
+	mlx_image_t	*medium_range;
+	mlx_image_t	*short_range;
+}	t_blocking;
 
-typedef struct s_wait
+typedef struct s_waiting
 {
 	mlx_image_t	*back;
 	mlx_image_t	*front;
 	mlx_image_t	*left;
-	mlx_image_t	*right; 
-}	t_wait;
+	mlx_image_t	*right;
+}	t_waiting;
 
 typedef struct s_guard
 {
-	int		image;
-	int		index;
-	int		count;
-	t_wait	*wait;
-	t_block	*block_left;
+	int			count;
+	int			index;
+	size_t		current_frame;
+	t_blocking	*back;
+	t_blocking	*front;
+	t_blocking	*left;
+	t_blocking	*right;
+	t_waiting	*waiting;
 }	t_guard;
 
 typedef struct s_month
@@ -191,7 +194,7 @@ typedef struct s_graphics
 	t_paris			*paris;
 	t_border		*border;
 	t_mountain		*mountain;
-	t_guard		*guards;
+	t_guard			*guards;
 }	t_graphics;
 
 typedef struct s_character
@@ -253,8 +256,25 @@ typedef enum e_error_code
 	CHARACTER_ALLOCATION,
 	MILL_TEXTURE,
 	GRASS_COUNTER,
-	GRASS_TEXTURE
+	GRASS_TEXTURE,
+	BLOCKING_ALLOCATION,
+	GUARDS_ALLOCATION,
+	GUARDS_WAITING_ALLOCATION
 }	t_error_code;
+
+typedef enum e_texture
+{
+	CHARACTER,
+	BLOCKING
+}	t_texture;
+
+typedef enum e_direction
+{
+	BACK,
+	FRONT,
+	LEFT,
+	RIGHT
+}	t_direction;
 
 // * Functions from the "error/" folder :
 // ? Functions from the "management.c" file :
@@ -364,19 +384,24 @@ void	set_borders_textures(t_game *game);
 void	set_moutains_textures(t_game *game);
 void	display_mountain(t_game *game, char c, t_position *position);
 void	set_guards_textures(t_game *game);
-void	add_guard(t_game *game);
+void	add_guard(t_game *game, t_blocking *blocking);
 void	display_character_texture(t_game *game, mlx_image_t **texture, t_position *position);
 void	display_and_disable_character(t_game *game, mlx_image_t **image,
 	t_position *position, size_t index);
 void	guard_waiting(t_game *game, t_guard *guard, size_t index);
-void	guard_left_blocking(t_guard *guard);
-void	stop_left_blocking(t_guard *guard);
-void	stop_left_waiting(t_guard *guard);
+void	guard_blocking(t_guard *guard, t_blocking *direction);
+void	stop_blocking(t_blocking *direction, size_t index);
+void	stop_waiting(t_guard *guard);
 void	guards_animation(t_game *game);
 int	is_player_near(t_game *game);
 void	display_and_disable_blocking(t_game *game, mlx_image_t **image, t_position *position, size_t index);
 void	guard_order(t_game *game);
-void	exchange_an_instance(mlx_image_t *old, mlx_image_t *new, size_t index);
+void	switch_an_instance(mlx_image_t *previous, mlx_image_t *next, size_t index);
 void	display_an_instance(mlx_image_t *target, size_t index, bool is_displayed);
+void	intitialize_but_disable(t_game *game, mlx_image_t *image, t_texture texture, size_t index);
+void	set_lateral_side_blocking_textures(t_game *game,
+	t_blocking **blocking, t_direction direction);
+void	set_vertical_side_blocking_textures(t_game *game,
+	t_blocking **blocking, t_direction direction);
 
 #endif

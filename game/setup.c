@@ -6,7 +6,7 @@
 /*   By: aheitz <aheitz@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/07 17:25:42 by aheitz            #+#    #+#             */
-/*   Updated: 2024/03/21 14:46:12 by aheitz           ###   ########.fr       */
+/*   Updated: 2024/03/22 11:17:07 by aheitz           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,13 +32,13 @@ void	set_game(t_game *game)
 	game->graphics->ground->simple_grass = NULL;
 	game->graphics->ground->left_grass = NULL;
 	game->graphics->ground->right_grass = NULL;
+	game->graphics->guards = NULL;
 	grass_initilization(game, &game->graphics->ground->simple_grass, "./textures/grass/simple_dark.png", "./textures/grass/simple_light.png");
 	set_graphics(game);
 	set_castle_textures(game);
 	set_paris_textures(game);
 	set_borders_textures(game);
 	set_moutains_textures(game);
-	set_guards_textures(game);
 	game->day = 0;
 	load_graphics(game);
 	display_months(game);

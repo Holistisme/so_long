@@ -6,7 +6,7 @@
 /*   By: aheitz <aheitz@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/08 19:46:42 by aheitz            #+#    #+#             */
-/*   Updated: 2024/03/22 11:32:06 by aheitz           ###   ########.fr       */
+/*   Updated: 2024/03/22 15:08:16 by aheitz           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -390,7 +390,7 @@ void	display_and_disable_character(t_game *game, mlx_image_t **image,
 	t_position *position, size_t index);
 void	guard_waiting(t_game *game, t_guard *guard, size_t index);
 void	guard_blocking(t_guard *guard, t_blocking *direction);
-void	stop_blocking(t_blocking *direction, size_t index);
+int	is_stopping_blocking(t_guard *guard, t_blocking *direction);
 void	stop_waiting(t_guard *guard);
 void	guards_animation(t_game *game);
 int	is_player_near(t_game *game);

@@ -6,7 +6,7 @@
 /*   By: aheitz <aheitz@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/19 16:55:14 by aheitz            #+#    #+#             */
-/*   Updated: 2024/03/22 11:48:43 by aheitz           ###   ########.fr       */
+/*   Updated: 2024/03/22 15:08:57 by aheitz           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -104,7 +104,8 @@ void	guard_waiting(t_game *game, t_guard *guard, size_t index)
 {
 	int		probability;
 
-	stop_blocking(guard->left, index); // !
+	if (is_stopping_blocking(guard, guard->left))
+		return ;
 	stop_waiting(guard); // !
 	probability = rand() % 100;
 	if (probability < 25)
@@ -150,14 +151,24 @@ void	guard_blocking(t_guard *guard, t_blocking *direction)
 }
 
 // ? If a blocking image is enable, disables it.
-void	stop_blocking(t_blocking *direction, size_t index)
+int	is_stopping_blocking(t_guard *guard, t_blocking *direction)
 {
-	if (direction->short_range->instances[index].enabled)
-		direction->short_range->instances[index].enabled = false;
-	else if (direction->medium_range->instances[index].enabled)
-		direction->medium_range->instances[index].enabled = false;
-	else if (direction->long_range->instances[index].enabled)
-		direction->long_range->instances[index].enabled = false;
+	if (direction->long_range->instances[guard->index].enabled)
+	{
+		switch_an_instance(direction->long_range, direction->medium_range, guard->index);
+		return (1);
+	}
+	else if (direction->medium_range->instances[guard->index].enabled)
+	{
+		switch_an_instance(direction->medium_range, direction->short_range, guard->index);
+		return (1);
+	}
+	else if (direction->short_range->instances[guard->index].enabled)
+	{
+		direction->short_range->instances[guard->index].enabled = false;
+		return (1);
+	}
+	return (0);
 }
 
 // ? Disables the previous instance to enables the next one

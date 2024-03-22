@@ -6,7 +6,7 @@
 /*   By: aheitz <aheitz@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/07 17:25:42 by aheitz            #+#    #+#             */
-/*   Updated: 2024/03/22 11:17:07 by aheitz           ###   ########.fr       */
+/*   Updated: 2024/03/22 14:38:51 by aheitz           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,10 +23,10 @@ void	set_game(t_game *game)
 	game->graphics = allocate(game, sizeof(t_graphics), 0); // TODO CHANGER ERREUR
 	game->graphics->ground = allocate(game, sizeof(t_ground), 0); // TODO CHANGER ERREUR
 	game->graphics->ground->count = 0;
-	game->graphics->month = allocate(game, sizeof(t_month), 0); // TODO CHANGER ERREUR
-	game->graphics->month->position = allocate(game, sizeof(t_position), MILL_TEXTURE); //TODO : Changer le code d'erreur!
-	game->graphics->month->position->y = 0;
-	game->graphics->month->position->x = game->map->width / 2 - 1;
+	//game->graphics->month = allocate(game, sizeof(t_month), 0); // TODO CHANGER ERREUR
+	//game->graphics->month->position = allocate(game, sizeof(t_position), MILL_TEXTURE); //TODO : Changer le code d'erreur!
+	//game->graphics->month->position->y = 0;
+	//game->graphics->month->position->x = game->map->width / 2 - 1;
 	game->graphics->mill = NULL;
 	game->graphics->field = NULL;
 	game->graphics->ground->simple_grass = NULL;
@@ -41,7 +41,6 @@ void	set_game(t_game *game)
 	set_moutains_textures(game);
 	game->day = 0;
 	load_graphics(game);
-	display_months(game);
 	set_character(game);
 	pthread_create(&animation, NULL, start_animation, game);
 	mlx_key_hook(game->window, move_request, game);

@@ -6,7 +6,7 @@
 /*   By: aheitz <aheitz@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/18 12:01:28 by aheitz            #+#    #+#             */
-/*   Updated: 2024/03/19 15:23:57 by aheitz           ###   ########.fr       */
+/*   Updated: 2024/03/22 14:30:20 by aheitz           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,7 +42,6 @@ void	load_months_textures(t_game *game)
 
 void	display_months(t_game *game)
 {
-	load_months_textures(game);
 	display_texture(game, &game->graphics->month->january,
 		game->graphics->month->position);
 	display_and_disable(game, &game->graphics->month->february,

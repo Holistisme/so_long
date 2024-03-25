@@ -6,7 +6,7 @@
 /*   By: aheitz <aheitz@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/26 14:51:31 by aheitz            #+#    #+#             */
-/*   Updated: 2024/03/22 14:36:35 by aheitz           ###   ########.fr       */
+/*   Updated: 2024/03/22 16:15:27 by aheitz           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -92,13 +92,21 @@ void	load_graphics(t_game *game)
 		{
 			if (is_inside(game->map->cells[game->map->position_scan->y][game->map->position_scan->x], ".|{}"))
 			{
+				new_grass(game, game->map->position_scan, game->map->cells[game->map->position_scan->y][game->map->position_scan->x]);
 				if (!game->graphics->guards)
 					set_guards_textures(game);
-				if (game->map->cells[game->map->position_scan->y][game->map->position_scan->x] == '{' && !game->graphics->guards->left)
-					set_lateral_side_blocking_textures(game, &game->graphics->guards->left, LEFT);
-				new_grass(game, game->map->position_scan, '0'); //? WTF
-				//if (game->map->cells[game->map->position_scan->y][game->map->position_scan->x] == '{')
-					add_guard(game, game->graphics->guards->left);
+				if (game->map->cells[game->map->position_scan->y][game->map->position_scan->x] == '{')
+				{
+					if (!game->graphics->guards->left)
+						set_lateral_side_blocking_textures(game, &game->graphics->guards->left, LEFT);
+					add_guard(&game, &game->graphics->guards->left);
+				}
+				else if (game->map->cells[game->map->position_scan->y][game->map->position_scan->x] == '.')
+				{
+					if (!game->graphics->guards->back)
+						set_vertical_side_blocking_textures(game, &game->graphics->guards->back, BACK);
+					add_guard(&game, &game->graphics->guards->back);
+				}
 			}
 			++game->map->position_scan->x;
 		}

@@ -6,14 +6,16 @@
 /*   By: aheitz <aheitz@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/08 19:46:42 by aheitz            #+#    #+#             */
-/*   Updated: 2024/03/22 15:08:16 by aheitz           ###   ########.fr       */
+/*   Updated: 2024/03/25 11:59:31 by aheitz           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef SO_LONG_H
 # define SO_LONG_H
-# include "get_next_line/get_next_line.h"
-# include "lib/MLX42/include/MLX42/MLX42.h"
+# include "../../get_next_line/get_next_line.h"
+# include "../../lib/MLX42/include/MLX42/MLX42.h"
+# include "enum.h"
+# include "structs.h"
 # include <fcntl.h>
 # include <unistd.h>
 # include <pthread.h>
@@ -33,24 +35,6 @@ typedef struct s_list
 	char			*line;
 	struct s_list	*next;
 }	t_list;
-
-// ? The map structure loaded by the player
-typedef struct s_map
-{
-	char			**cells;
-	char			**cloned_cells;
-	char			*line;
-	int				collectibles;
-	int				fd;
-	int				fields;
-	int				mills;
-	size_t			height;
-	size_t			width;
-	t_position		*spawn;
-	t_position		*exit;
-	t_position		*position_scan;
-	t_list			*list;
-}	t_map;
 
 typedef struct s_border
 {
@@ -203,65 +187,6 @@ typedef struct s_character
 	t_position	*position;
 }				t_character;
 
-// ? The game structure to play
-typedef struct s_game
-{
-	t_map		*map;
-	mlx_t		*window;
-	t_graphics	*graphics;
-	t_character	*character;
-	size_t		day;
-	mlx_image_t *victory;
-}	t_game;
-
-// * The enumeration for error codes
-typedef enum e_error_code
-{
-	// ! Errors related to program arguments
-	NO_FILE,
-	MULTIPLE_FILES,
-	UNRECOGNISED_EXTENSION,
-	// ! Errors related to initial allocations
-	GAME_ALLOCATION,
-	MAP_ALLOCATION,
-	// ! Error related to file opening
-	INVALID_FD,
-	// ! Errors related to get_next_line program
-	NULL_GNL,
-	NODE_ALLOCATION,
-	// ! Errors related to map requirements
-	MAP_TOO_SMALL,
-	MAP_TOO_WIDE,
-	RECTANGULAR_MAP,
-	INVALID_LIMITS,
-	// ! Error related to map cell allocation
-	CELLS_ALLOCATION,
-	// ! Errors related to map elements
-	UNRECOGNISED_ELEMENT,
-	POSITION_ALLOCATION,
-	MULTIPLE_SPAWN,
-	MULTIPLE_EXIT,
-	NO_COLLECTIBLE,
-	NO_SPAWN,
-	NO_EXIT,
-	// ! Errors related to copy allocation and path verification!
-	CLONED_CELLS_ALLOCATION,
-	CLONED_LINE_ALLOCATION,
-	INVALID_PATH,
-	// * NEW ERRORS
-	WINDOW_ALLOCATION,
-	GRAPHICS_ALLOCATION,
-	LOADING_TEXTURE,
-	IMAGE_ALLOCATION,
-	CHARACTER_ALLOCATION,
-	MILL_TEXTURE,
-	GRASS_COUNTER,
-	GRASS_TEXTURE,
-	BLOCKING_ALLOCATION,
-	GUARDS_ALLOCATION,
-	GUARDS_WAITING_ALLOCATION
-}	t_error_code;
-
 typedef enum e_texture
 {
 	CHARACTER,
@@ -276,13 +201,19 @@ typedef enum e_direction
 	RIGHT
 }	t_direction;
 
+void	check_program_argument(int argc, char **argv);
+void	check_argument_extension(char *file_name);
+void	print_error(char *error_message);
+void	error_occurred(t_game *game, t_error error);
+void	print_error(char *error_message);
+void	*allocation(t_game *game, size_t size, t_error error);
+void	free_game(t_game **game);
+
+//! BAR
 // * Functions from the "error/" folder :
 // ? Functions from the "management.c" file :
-void	*allocate(t_game *game, size_t size, t_error_code code);
-void	error_occurred(t_game *game, t_error_code code);
-void	report_error_a(t_error_code code);
-void	report_error_b(t_error_code code);
-void	print_error(char *error_message);
+void	report_error_a(t_error code);
+void	report_error_b(t_error code);
 
 // ? Functions from the "free.c" file :
 void	free_game(t_game **game);
@@ -292,10 +223,6 @@ void	free_cells(char ***cells);
 void	free_list(t_list **head);
 
 // * Functions from the "checking/" folder :
-// ? Functions from the "argument.c" file :
-void	check_program_argument(int argc, char **argv);
-void	check_argument_extension(char *file_name);
-
 // ? Functions from the "elements.c" file :
 void	scan_cells_elements(t_game *game);
 void	save_element(t_game *game, size_t x, size_t y);
@@ -384,7 +311,7 @@ void	set_borders_textures(t_game *game);
 void	set_moutains_textures(t_game *game);
 void	display_mountain(t_game *game, char c, t_position *position);
 void	set_guards_textures(t_game *game);
-void	add_guard(t_game *game, t_blocking *blocking);
+void	add_guard(t_game **game, t_blocking **blocking);
 void	display_character_texture(t_game *game, mlx_image_t **texture, t_position *position);
 void	display_and_disable_character(t_game *game, mlx_image_t **image,
 	t_position *position, size_t index);
@@ -398,7 +325,7 @@ void	display_and_disable_blocking(t_game *game, mlx_image_t **image, t_position 
 void	guard_order(t_game *game);
 void	switch_an_instance(mlx_image_t *previous, mlx_image_t *next, size_t index);
 void	display_an_instance(mlx_image_t *target, size_t index, bool is_displayed);
-void	intitialize_but_disable(t_game *game, mlx_image_t *image, t_texture texture, size_t index);
+void	intitialize_but_disable(t_game **game, mlx_image_t **image, t_texture texture, size_t index);
 void	set_lateral_side_blocking_textures(t_game *game,
 	t_blocking **blocking, t_direction direction);
 void	set_vertical_side_blocking_textures(t_game *game,

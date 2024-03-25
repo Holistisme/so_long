@@ -6,7 +6,7 @@
 /*   By: aheitz <aheitz@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/15 14:33:35 by aheitz            #+#    #+#             */
-/*   Updated: 2024/03/19 17:32:42 by aheitz           ###   ########.fr       */
+/*   Updated: 2024/03/22 16:25:08 by aheitz           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,4 +35,26 @@ void	display_and_disable(t_game *game, mlx_image_t **image,
 {
 	display_texture(game, image, position);
 	(*image)->instances[index].enabled = false;
+}
+
+// ? Initializes an instance according to its type,
+// ? then immediately disables it
+void	intitialize_but_disable(t_game **game, mlx_image_t **image,
+	t_texture texture, size_t index)
+{
+	if (texture == CHARACTER)
+		mlx_image_to_window((*game)->window, (*image), (*game)->map->position_scan->x
+			* 64 + 8, (*game)->map->position_scan->y * 64 + 8);
+	else if (texture == BLOCKING)
+		mlx_image_to_window((*game)->window, (*image), (*game)->map->position_scan->x
+			* 64 - 32, (*game)->map->position_scan->y * 64 + 8);
+	(*image)->instances[index].enabled = false;
+}
+
+// ? Disables the previous instance to enables the next one
+void	switch_an_instance(mlx_image_t *previous,
+	mlx_image_t *next, size_t index)
+{
+	previous->instances[index].enabled = false;
+	next->instances[index].enabled = true;
 }

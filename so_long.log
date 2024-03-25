@@ -1,0 +1,229 @@
+Logfile date: lun. 25 mars 2024 12:02:27 CET
+
+Submitted argument: france.ber
+
+make[1]: Entering directory '/home/aheitz/so_long'
+-- MLX42 @ 2.3.3
+-- Building in RELEASE mode
+-- Found GLFW: /usr/lib/x86_64-linux-gnu/libglfw.so
+-- Configuring done
+-- Generating done
+-- Build files have been written to: /home/aheitz/so_long/lib/MLX42/build
+make[2]: Entering directory '/home/aheitz/so_long/lib/MLX42/build'
+make[3]: Entering directory '/home/aheitz/so_long/lib/MLX42/build'
+make[4]: Entering directory '/home/aheitz/so_long/lib/MLX42/build'
+[35m[1mConsolidate compiler generated dependencies of target mlx42[0m
+make[4]: Leaving directory '/home/aheitz/so_long/lib/MLX42/build'
+[100%] Built target mlx42
+make[3]: Leaving directory '/home/aheitz/so_long/lib/MLX42/build'
+make[2]: Leaving directory '/home/aheitz/so_long/lib/MLX42/build'
+make[1]: Leaving directory '/home/aheitz/so_long'
+
+==1933050== Memcheck, a memory error detector
+==1933050== Copyright (C) 2002-2017, and GNU GPL'd, by Julian Seward et al.
+==1933050== Using Valgrind-3.18.1 and LibVEX; rerun with -h for copyright info
+==1933050== Command: ./so_long france.ber
+==1933050== 
+==1933050== 
+==1933050== HEAP SUMMARY:
+==1933050==     in use at exit: 0 bytes in 0 blocks
+==1933050==   total heap usage: 2 allocs, 2 frees, 8 bytes allocated
+==1933050== 
+==1933050== All heap blocks were freed -- no leaks are possible
+==1933050== 
+==1933050== For lists of detected and suppressed errors, rerun with: -s
+==1933050== ERROR SUMMARY: 0 errors from 0 contexts (suppressed: 0 from 0)
+
+Logfile date: lun. 25 mars 2024 12:01:52 CET
+
+Submitted argument: france.ber
+
+make[1]: Entering directory '/home/aheitz/so_long'
+-- MLX42 @ 2.3.3
+-- Building in RELEASE mode
+-- Found GLFW: /usr/lib/x86_64-linux-gnu/libglfw.so
+-- Configuring done
+-- Generating done
+-- Build files have been written to: /home/aheitz/so_long/lib/MLX42/build
+make[2]: Entering directory '/home/aheitz/so_long/lib/MLX42/build'
+make[3]: Entering directory '/home/aheitz/so_long/lib/MLX42/build'
+make[4]: Entering directory '/home/aheitz/so_long/lib/MLX42/build'
+[35m[1mConsolidate compiler generated dependencies of target mlx42[0m
+make[4]: Leaving directory '/home/aheitz/so_long/lib/MLX42/build'
+[100%] Built target mlx42
+make[3]: Leaving directory '/home/aheitz/so_long/lib/MLX42/build'
+make[2]: Leaving directory '/home/aheitz/so_long/lib/MLX42/build'
+make[1]: Leaving directory '/home/aheitz/so_long'
+
+==1932764== Memcheck, a memory error detector
+==1932764== Copyright (C) 2002-2017, and GNU GPL'd, by Julian Seward et al.
+==1932764== Using Valgrind-3.18.1 and LibVEX; rerun with -h for copyright info
+==1932764== Command: ./so_long france.ber
+==1932764== 
+Error
+Allocation for map structure fails!==1932764== 
+==1932764== HEAP SUMMARY:
+==1932764==     in use at exit: 0 bytes in 0 blocks
+==1932764==   total heap usage: 1 allocs, 1 frees, 8 bytes allocated
+==1932764== 
+==1932764== All heap blocks were freed -- no leaks are possible
+==1932764== 
+==1932764== For lists of detected and suppressed errors, rerun with: -s
+==1932764== ERROR SUMMARY: 0 errors from 0 contexts (suppressed: 0 from 0)
+
+Logfile date: lun. 25 mars 2024 12:01:23 CET
+
+Submitted argument: france.ber
+
+make[1]: Entering directory '/home/aheitz/so_long'
+-- MLX42 @ 2.3.3
+-- Building in RELEASE mode
+-- Found GLFW: /usr/lib/x86_64-linux-gnu/libglfw.so
+-- Configuring done
+-- Generating done
+-- Build files have been written to: /home/aheitz/so_long/lib/MLX42/build
+make[2]: Entering directory '/home/aheitz/so_long/lib/MLX42/build'
+make[3]: Entering directory '/home/aheitz/so_long/lib/MLX42/build'
+make[4]: Entering directory '/home/aheitz/so_long/lib/MLX42/build'
+[35m[1mConsolidate compiler generated dependencies of target mlx42[0m
+make[4]: Leaving directory '/home/aheitz/so_long/lib/MLX42/build'
+[100%] Built target mlx42
+make[3]: Leaving directory '/home/aheitz/so_long/lib/MLX42/build'
+make[2]: Leaving directory '/home/aheitz/so_long/lib/MLX42/build'
+make[1]: Leaving directory '/home/aheitz/so_long'
+
+==1932449== Memcheck, a memory error detector
+==1932449== Copyright (C) 2002-2017, and GNU GPL'd, by Julian Seward et al.
+==1932449== Using Valgrind-3.18.1 and LibVEX; rerun with -h for copyright info
+==1932449== Command: ./so_long france.ber
+==1932449== 
+Error
+Allocation for game structure fails!==1932449== 
+==1932449== HEAP SUMMARY:
+==1932449==     in use at exit: 0 bytes in 0 blocks
+==1932449==   total heap usage: 0 allocs, 0 frees, 0 bytes allocated
+==1932449== 
+==1932449== All heap blocks were freed -- no leaks are possible
+==1932449== 
+==1932449== For lists of detected and suppressed errors, rerun with: -s
+==1932449== ERROR SUMMARY: 0 errors from 0 contexts (suppressed: 0 from 0)
+
+Logfile date: lun. 25 mars 2024 12:00:24 CET
+
+Submitted argument: 
+
+make[1]: Entering directory '/home/aheitz/so_long'
+-- MLX42 @ 2.3.3
+-- Building in RELEASE mode
+-- Found GLFW: /usr/lib/x86_64-linux-gnu/libglfw.so
+-- Configuring done
+-- Generating done
+-- Build files have been written to: /home/aheitz/so_long/lib/MLX42/build
+make[2]: Entering directory '/home/aheitz/so_long/lib/MLX42/build'
+make[3]: Entering directory '/home/aheitz/so_long/lib/MLX42/build'
+make[4]: Entering directory '/home/aheitz/so_long/lib/MLX42/build'
+[35m[1mConsolidate compiler generated dependencies of target mlx42[0m
+make[4]: Leaving directory '/home/aheitz/so_long/lib/MLX42/build'
+[100%] Built target mlx42
+make[3]: Leaving directory '/home/aheitz/so_long/lib/MLX42/build'
+make[2]: Leaving directory '/home/aheitz/so_long/lib/MLX42/build'
+make[1]: Leaving directory '/home/aheitz/so_long'
+
+==1931580== Memcheck, a memory error detector
+==1931580== Copyright (C) 2002-2017, and GNU GPL'd, by Julian Seward et al.
+==1931580== Using Valgrind-3.18.1 and LibVEX; rerun with -h for copyright info
+==1931580== Command: ./so_long
+==1931580== 
+Error
+No argument to get the game map!==1931580== 
+==1931580== HEAP SUMMARY:
+==1931580==     in use at exit: 0 bytes in 0 blocks
+==1931580==   total heap usage: 0 allocs, 0 frees, 0 bytes allocated
+==1931580== 
+==1931580== All heap blocks were freed -- no leaks are possible
+==1931580== 
+==1931580== For lists of detected and suppressed errors, rerun with: -s
+==1931580== ERROR SUMMARY: 0 errors from 0 contexts (suppressed: 0 from 0)
+
+Logfile date: lun. 25 mars 2024 11:59:59 CET
+
+Submitted argument: france.ber
+
+make[1]: Entering directory '/home/aheitz/so_long'
+-- MLX42 @ 2.3.3
+-- Building in RELEASE mode
+-- Found GLFW: /usr/lib/x86_64-linux-gnu/libglfw.so
+-- Configuring done
+-- Generating done
+-- Build files have been written to: /home/aheitz/so_long/lib/MLX42/build
+make[2]: Entering directory '/home/aheitz/so_long/lib/MLX42/build'
+make[3]: Entering directory '/home/aheitz/so_long/lib/MLX42/build'
+make[4]: Entering directory '/home/aheitz/so_long/lib/MLX42/build'
+[35m[1mConsolidate compiler generated dependencies of target mlx42[0m
+make[4]: Leaving directory '/home/aheitz/so_long/lib/MLX42/build'
+[100%] Built target mlx42
+make[3]: Leaving directory '/home/aheitz/so_long/lib/MLX42/build'
+make[2]: Leaving directory '/home/aheitz/so_long/lib/MLX42/build'
+make[1]: Leaving directory '/home/aheitz/so_long'
+
+==1931270== Memcheck, a memory error detector
+==1931270== Copyright (C) 2002-2017, and GNU GPL'd, by Julian Seward et al.
+==1931270== Using Valgrind-3.18.1 and LibVEX; rerun with -h for copyright info
+==1931270== Command: ./so_long france.ber
+==1931270== 
+==1931270== 
+==1931270== HEAP SUMMARY:
+==1931270==     in use at exit: 0 bytes in 0 blocks
+==1931270==   total heap usage: 2 allocs, 2 frees, 8 bytes allocated
+==1931270== 
+==1931270== All heap blocks were freed -- no leaks are possible
+==1931270== 
+==1931270== For lists of detected and suppressed errors, rerun with: -s
+==1931270== ERROR SUMMARY: 0 errors from 0 contexts (suppressed: 0 from 0)
+
+Logfile date: lun. 25 mars 2024 11:56:52 CET
+
+Submitted argument: france.ber
+
+make[1]: Entering directory '/home/aheitz/so_long'
+-- MLX42 @ 2.3.3
+-- Building in RELEASE mode
+-- Found GLFW: /usr/lib/x86_64-linux-gnu/libglfw.so
+-- Configuring done
+-- Generating done
+-- Build files have been written to: /home/aheitz/so_long/lib/MLX42/build
+make[2]: Entering directory '/home/aheitz/so_long/lib/MLX42/build'
+make[3]: Entering directory '/home/aheitz/so_long/lib/MLX42/build'
+make[4]: Entering directory '/home/aheitz/so_long/lib/MLX42/build'
+[35m[1mConsolidate compiler generated dependencies of target mlx42[0m
+make[4]: Leaving directory '/home/aheitz/so_long/lib/MLX42/build'
+[100%] Built target mlx42
+make[3]: Leaving directory '/home/aheitz/so_long/lib/MLX42/build'
+make[2]: Leaving directory '/home/aheitz/so_long/lib/MLX42/build'
+make[1]: Leaving directory '/home/aheitz/so_long'
+
+==1930613== Memcheck, a memory error detector
+==1930613== Copyright (C) 2002-2017, and GNU GPL'd, by Julian Seward et al.
+==1930613== Using Valgrind-3.18.1 and LibVEX; rerun with -h for copyright info
+==1930613== Command: ./so_long france.ber
+==1930613== 
+==1930613== 
+==1930613== HEAP SUMMARY:
+==1930613==     in use at exit: 0 bytes in 1 blocks
+==1930613==   total heap usage: 2 allocs, 1 frees, 8 bytes allocated
+==1930613== 
+==1930613== 0 bytes in 1 blocks are definitely lost in loss record 1 of 1
+==1930613==    at 0x4848899: malloc (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
+==1930613==    by 0x40126B: allocation (main.c:99)
+==1930613==    by 0x4011CD: main (main.c:25)
+==1930613== 
+==1930613== LEAK SUMMARY:
+==1930613==    definitely lost: 0 bytes in 1 blocks
+==1930613==    indirectly lost: 0 bytes in 0 blocks
+==1930613==      possibly lost: 0 bytes in 0 blocks
+==1930613==    still reachable: 0 bytes in 0 blocks
+==1930613==         suppressed: 0 bytes in 0 blocks
+==1930613== 
+==1930613== For lists of detected and suppressed errors, rerun with: -s
+==1930613== ERROR SUMMARY: 1 errors from 1 contexts (suppressed: 0 from 0)
+

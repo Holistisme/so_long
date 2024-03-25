@@ -6,7 +6,7 @@
 #    By: aheitz <aheitz@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/01/09 16:39:50 by aheitz            #+#    #+#              #
-#    Updated: 2024/03/25 11:42:33 by aheitz           ###   ########.fr        #
+#    Updated: 2024/03/25 17:05:47 by aheitz           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -18,7 +18,9 @@ GNL			= ./get_next_line
 LIBS		= ${MLX}/build/libmlx42.a -ldl -lglfw -pthread -lm
 SRCS		= program/main.c \
 			${GNL}/get_next_line.c \
-			${GNL}/get_next_line_utils.c
+			${GNL}/get_next_line_utils.c \
+			program/errors.c \
+			program/memory.c
 #			setup/save_map.c \
 #			setup/set_map.c \
 #			checking/argument.c \

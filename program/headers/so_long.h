@@ -6,7 +6,7 @@
 /*   By: aheitz <aheitz@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/08 19:46:42 by aheitz            #+#    #+#             */
-/*   Updated: 2024/03/25 11:59:31 by aheitz           ###   ########.fr       */
+/*   Updated: 2024/03/25 16:22:57 by aheitz           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,7 @@
 # include "../../lib/MLX42/include/MLX42/MLX42.h"
 # include "enum.h"
 # include "structs.h"
+# include "functions.h"
 # include <fcntl.h>
 # include <unistd.h>
 # include <pthread.h>
@@ -28,13 +29,6 @@ typedef struct s_position
 	size_t	x;
 	size_t	y;
 }	t_position;
-
-// ? The linked list structure to guarantee get_next_line results
-typedef struct s_list
-{
-	char			*line;
-	struct s_list	*next;
-}	t_list;
 
 typedef struct s_border
 {
@@ -201,14 +195,6 @@ typedef enum e_direction
 	RIGHT
 }	t_direction;
 
-void	check_program_argument(int argc, char **argv);
-void	check_argument_extension(char *file_name);
-void	print_error(char *error_message);
-void	error_occurred(t_game *game, t_error error);
-void	print_error(char *error_message);
-void	*allocation(t_game *game, size_t size, t_error error);
-void	free_game(t_game **game);
-
 //! BAR
 // * Functions from the "error/" folder :
 // ? Functions from the "management.c" file :
@@ -216,11 +202,9 @@ void	report_error_a(t_error code);
 void	report_error_b(t_error code);
 
 // ? Functions from the "free.c" file :
-void	free_game(t_game **game);
 void	set_map_to_null(t_map **map);
 void	free_map(t_map **map);
 void	free_cells(char ***cells);
-void	free_list(t_list **head);
 
 // * Functions from the "checking/" folder :
 // ? Functions from the "elements.c" file :
@@ -239,11 +223,6 @@ int		is_inside(char c, char *string);
 void	check_if_map_is_adapted(t_game *game);
 void	check_if_map_is_rectangular(t_game *game);
 void	check_if_map_has_limits(t_game *game);
-
-// * Functions from the "setup/" folder :
-// ? Functions from the "save_map.c" file :
-void	save_map(t_game *game);
-t_list	*create_node(t_game *game);
 
 // ? Functions from the "set_map.c" file :
 void	set_map(t_game *game);

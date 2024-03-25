@@ -6,7 +6,7 @@
 /*   By: aheitz <aheitz@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/25 11:47:15 by aheitz            #+#    #+#             */
-/*   Updated: 2024/03/25 11:50:10 by aheitz           ###   ########.fr       */
+/*   Updated: 2024/03/25 16:59:37 by aheitz           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,12 +22,10 @@ typedef enum e_error
 	UNRECOGNISED_EXTENSION,
 	UNALLOCATED_GAME,
 	UNALLOCATED_MAP,
-	// ! BAR
-	// ! Error related to file opening
 	INVALID_FD,
-	// ! Errors related to get_next_line program
-	NULL_GNL,
-	NODE_ALLOCATION,
+	NULL_LINE,
+	UNALLOCATED_NODE,
+	// ! BAR
 	// ! Errors related to map requirements
 	MAP_TOO_SMALL,
 	MAP_TOO_WIDE,

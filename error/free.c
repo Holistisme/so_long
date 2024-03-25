@@ -6,22 +6,11 @@
 /*   By: aheitz <aheitz@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/19 13:01:04 by aheitz            #+#    #+#             */
-/*   Updated: 2024/03/25 11:57:19 by aheitz           ###   ########.fr       */
+/*   Updated: 2024/03/25 16:16:43 by aheitz           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../so_long.h"
-
-// ? Defines each element of the map structure as NULL
-void	set_map_to_null(t_map **map)
-{
-	(*map)->cells = NULL;
-	(*map)->cloned_cells = NULL;
-	(*map)->spawn = NULL;
-	(*map)->exit = NULL;
-	(*map)->line = NULL;
-	(*map)->list = NULL;
-}
 
 // ? Frees map memory by calling free sub-functions
 void	free_map(t_map **map)
@@ -58,23 +47,5 @@ void	free_cells(char ***cells)
 			free((*cells)[index++]);
 		free(*cells);
 		*cells = NULL;
-	}
-}
-
-// ! Frees memory for a linked list
-void	free_list(t_list **head)
-{
-	t_list	*current;
-
-	if (head)
-	{
-		while (*head)
-		{
-			current = *head;
-			*head = (*head)->next;
-			free(current->line);
-			free(current);
-		}
-		*head = NULL;
 	}
 }

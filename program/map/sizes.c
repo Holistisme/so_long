@@ -1,29 +1,38 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   sizes.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: aheitz <aheitz@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/01/09 16:39:44 by aheitz            #+#    #+#             */
-/*   Updated: 2024/03/27 17:07:15 by aheitz           ###   ########.fr       */
+/*   Created: 2024/03/26 11:51:13 by aheitz            #+#    #+#             */
+/*   Updated: 2024/03/27 17:39:30 by aheitz           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "headers/directive.h"
+#include "../headers/directive.h"
 
-// * The program head that calls each key step
-int	main(int argc, char **argv)
+// * Sets the height of the map
+void	set_height(t_game *game)
 {
-	t_game	*game;
+	t_list	*current;
 
-	game = NULL;
-	srand(time(NULL));
-	check_program_argument(argc, argv[1]);
-	game = allocation(game, sizeof(t_game), UNALLOCATED_GAME);
-	game->map = NULL;
-	game->map = allocation(game, sizeof(t_map), UNALLOCATED_MAP);
-	set_map(game, argv[1]);
-	free_game(&game);
-	return (0);
+	current = game->map->gnl_map;
+	game->map->height = 0;
+	while (current)
+	{
+		++game->map->height;
+		current = current->next;
+	}
+}
+
+// * Returns the width of the map
+size_t	get_width(char *line)
+{
+	size_t	index;
+
+	index = 0;
+	while (line[index] && line[index] != '\n')
+		++index;
+	return (index);
 }

@@ -1,25 +1,31 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   castles.c                                          :+:      :+:    :+:   */
+/*   castle.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: aheitz <aheitz@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/18 15:50:44 by aheitz            #+#    #+#             */
-/*   Updated: 2024/03/19 10:20:23 by aheitz           ###   ########.fr       */
+/*   Updated: 2024/03/27 19:23:13 by aheitz           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../so_long.h"
+#include "../headers/directive.h"
 
-void	set_castle_textures(t_game *game)
+void	set_castle(t_game *game)
 {
-	game->graphics->castle = NULL;
-	game->graphics->castle = allocate(game, sizeof(t_castle), 0); //TODO : NOUVEAU CODE
+	game->graphics->castle = allocate(game, sizeof(t_castle),
+			UNALLOCATED_CASTLE);
+	game->graphics->castle->elements = 0;
 	set_texture(game, &game->graphics->castle->english,
-		"./textures/castles/english.png");
+		"./textures/castle/english.png");
 	set_texture(game, &game->graphics->castle->french,
-		"./textures/castles/french.png");
+		"./textures/castle/french.png");
+}
+
+void	build_castle(t_game *game)
+{
+	set_animation(game, )
 }
 
 void	take_castle(t_game *game)

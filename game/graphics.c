@@ -6,7 +6,7 @@
 /*   By: aheitz <aheitz@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/26 14:51:31 by aheitz            #+#    #+#             */
-/*   Updated: 2024/03/22 16:15:27 by aheitz           ###   ########.fr       */
+/*   Updated: 2024/03/27 18:18:12 by aheitz           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,6 @@
 // ? Assigns each texture from an external path
 void	set_graphics(t_game *game)
 {
-	set_texture(game, &game->graphics->limit, "./textures/limit.png");
 	set_texture(game, &game->graphics->water, "./textures/water.png");
 	set_texture(game, &game->graphics->deep_water, "./textures/deep_water.png");
 	set_texture(game, &game->graphics->sand, "./textures/sand.png");
@@ -44,22 +43,6 @@ void	set_graphics(t_game *game)
 	set_texture(game, &game->graphics->snowy_rock, "./textures/snowy_rock.png");
 	set_texture(game, &game->graphics->two_snowy_rocks, "./textures/two_snowy_rocks.png");
 	set_texture(game, &game->graphics->three_snowy_rocks, "./textures/three_snowy_rocks.png");
-	set_texture(game, &game->graphics->ground->snow,
-			"./textures/snow.png");
-}
-
-// ? Assigns each texture to an address while releasing this first after action
-void	set_texture(t_game *game, mlx_image_t **target, const char *path)
-{
-	mlx_texture_t	*texture;
-
-	texture = mlx_load_png(path);
-	if (!texture)
-		error_occurred(game, LOADING_TEXTURE);
-	*target = mlx_texture_to_image(game->window, texture);
-	mlx_delete_texture(texture);
-	if (!*target)
-		error_occurred(game, IMAGE_ALLOCATION);
 }
 
 // ? Traverses cells and calls subfunctions to load graphics

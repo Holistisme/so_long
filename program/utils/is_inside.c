@@ -1,29 +1,25 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   is_inside.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: aheitz <aheitz@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/01/09 16:39:44 by aheitz            #+#    #+#             */
-/*   Updated: 2024/03/27 17:07:15 by aheitz           ###   ########.fr       */
+/*   Created: 2024/03/27 16:09:39 by aheitz            #+#    #+#             */
+/*   Updated: 2024/03/27 16:10:05 by aheitz           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "headers/directive.h"
+#include "../headers/directive.h"
 
-// * The program head that calls each key step
-int	main(int argc, char **argv)
+// * Returns 1 if the character is found in the string. Otherwise 0
+int	is_inside(char c, char *string)
 {
-	t_game	*game;
+	size_t	scan;
 
-	game = NULL;
-	srand(time(NULL));
-	check_program_argument(argc, argv[1]);
-	game = allocation(game, sizeof(t_game), UNALLOCATED_GAME);
-	game->map = NULL;
-	game->map = allocation(game, sizeof(t_map), UNALLOCATED_MAP);
-	set_map(game, argv[1]);
-	free_game(&game);
+	scan = 0;
+	while (string[scan])
+		if (c == string[scan++])
+			return (1);
 	return (0);
 }

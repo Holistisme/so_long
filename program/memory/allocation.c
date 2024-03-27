@@ -1,29 +1,25 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   allocation.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: aheitz <aheitz@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/01/09 16:39:44 by aheitz            #+#    #+#             */
-/*   Updated: 2024/03/27 17:07:15 by aheitz           ###   ########.fr       */
+/*   Created: 2024/03/26 11:25:22 by aheitz            #+#    #+#             */
+/*   Updated: 2024/03/26 11:40:34 by aheitz           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "headers/directive.h"
+#include "../headers/directive.h"
 
-// * The program head that calls each key step
-int	main(int argc, char **argv)
+// * Allocates memory with malloc and handles error if it fails
+void	*allocation(t_game *game, size_t size, t_error error)
 {
-	t_game	*game;
+	void	*ptr;
 
-	game = NULL;
-	srand(time(NULL));
-	check_program_argument(argc, argv[1]);
-	game = allocation(game, sizeof(t_game), UNALLOCATED_GAME);
-	game->map = NULL;
-	game->map = allocation(game, sizeof(t_map), UNALLOCATED_MAP);
-	set_map(game, argv[1]);
-	free_game(&game);
-	return (0);
+	ptr = NULL;
+	ptr = malloc(size);
+	if (!ptr)
+		error_occurred(game, error);
+	return (ptr);
 }

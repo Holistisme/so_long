@@ -6,57 +6,57 @@
 /*   By: aheitz <aheitz@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/25 11:47:15 by aheitz            #+#    #+#             */
-/*   Updated: 2024/03/25 16:59:37 by aheitz           ###   ########.fr       */
+/*   Updated: 2024/03/27 18:40:09 by aheitz           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef HEADERS_H
-# define HEADERS_H
-# include "so_long.h"
+#ifndef ENUM_H
+# define ENUM_H
+# include "./directive.h"
 
 // * The various error enumerations
 typedef enum e_error
 {
-	NO_FILE,
-	MULTIPLE_FILES,
-	UNRECOGNISED_EXTENSION,
+	// ! Errors related to allocations
+	UNALLOCATED_CELL,
+	UNALLOCATED_CELLS,
+	UNALLOCATED_CLONED_CELLS,
+	UNALLOCATED_CLONED_LINE,
 	UNALLOCATED_GAME,
 	UNALLOCATED_MAP,
-	INVALID_FD,
-	NULL_LINE,
 	UNALLOCATED_NODE,
-	// ! BAR
-	// ! Errors related to map requirements
+	UNALLOCATED_POSITION,
+	NULL_LINE,
+	// ! Errors related to map validity
+	INVALID_FD,
+	INVALID_LIMITS,
 	MAP_TOO_SMALL,
 	MAP_TOO_WIDE,
-	RECTANGULAR_MAP,
-	INVALID_LIMITS,
-	// ! Error related to map cell allocation
-	CELLS_ALLOCATION,
-	// ! Errors related to map elements
-	UNRECOGNISED_ELEMENT,
-	POSITION_ALLOCATION,
-	MULTIPLE_SPAWN,
+	MULTIPLE_FILES,
+	NO_FILE,
+	NON_RECTANGULAR_MAP,
+	UNRECOGNISED_EXTENSION,
+	// ! Errors related to elements validity
+	INVALID_PATHWAY,
 	MULTIPLE_EXIT,
+	MULTIPLE_SPAWN,
 	NO_COLLECTIBLE,
-	NO_SPAWN,
 	NO_EXIT,
-	// ! Errors related to copy allocation and path verification!
-	CLONED_CELLS_ALLOCATION,
-	CLONED_LINE_ALLOCATION,
-	INVALID_PATH,
-	// * NEW ERRORS
-	WINDOW_ALLOCATION,
-	GRAPHICS_ALLOCATION,
-	LOADING_TEXTURE,
-	IMAGE_ALLOCATION,
-	CHARACTER_ALLOCATION,
-	MILL_TEXTURE,
-	GRASS_COUNTER,
-	GRASS_TEXTURE,
-	BLOCKING_ALLOCATION,
-	GUARDS_ALLOCATION,
-	GUARDS_WAITING_ALLOCATION
+	NO_SPAWN,
+	UNRECOGNISED_ELEMENT,
+	// ! Errors related to game allocations
+	UNALLOCATED_CASTLE,
+	UNALLOCATED_IMAGE,
+	UNALLOCATED_GRAPHICS,
+	UNALLOCATED_WINDOW,
+	UNLOADED_TEXTURE,
+	CHARACTER_ALLOCATION, // * TO SORT
+	MILL_TEXTURE, // * TO SORT
+	GRASS_COUNTER, // * TO SORT
+	GRASS_TEXTURE, // * TO SORT
+	BLOCKING_ALLOCATION, // * TO SORT
+	GUARDS_ALLOCATION, // * TO SORT
+	GUARDS_WAITING_ALLOCATION // * TO SORT
 }	t_error;
 
 #endif

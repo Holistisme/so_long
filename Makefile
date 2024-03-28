@@ -6,7 +6,7 @@
 #    By: aheitz <aheitz@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/01/09 16:39:50 by aheitz            #+#    #+#              #
-#    Updated: 2024/03/27 17:52:11 by aheitz           ###   ########.fr        #
+#    Updated: 2024/03/28 10:28:51 by aheitz           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -35,7 +35,13 @@ SRCS		= program/main.c \
 			${MAP}/sizes.c \
 			${MEMORY}/allocation.c \
 			${MEMORY}/freeing.c \
-			program/utils/is_inside.c
+			program/utils/is_inside.c \
+			program/graphics/castle.c \
+			program/graphics/paris.c \
+			program/graphics/instances.c \
+			program/graphics/graphics.c \
+			program/graphics/setup.c \
+			program/graphics/ground.c
 OBJS		= ${SRCS:.c=.o}
 BER_FILE	?= france.ber
 

@@ -6,7 +6,7 @@
 /*   By: aheitz <aheitz@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/08 19:46:42 by aheitz            #+#    #+#             */
-/*   Updated: 2024/03/27 18:01:18 by aheitz           ###   ########.fr       */
+/*   Updated: 2024/03/28 08:56:15 by aheitz           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,15 +67,6 @@ typedef struct s_mountain
 	mlx_image_t	*peak;
 }	t_mountain;
 
-typedef struct s_ground
-{
-	t_grass		*simple_grass;
-	t_grass		*left_grass;
-	t_grass		*right_grass;
-	mlx_image_t	*snow;
-	int			count;
-}	t_ground;
-
 typedef struct s_blocking
 {
 	mlx_image_t	*long_range;
@@ -102,25 +93,6 @@ typedef struct s_guard
 	t_blocking	*right;
 	t_waiting	*waiting;
 }	t_guard;
-
-typedef struct s_month
-{
-	t_position	*position;
-	mlx_image_t	*january;
-	mlx_image_t	*february;
-	mlx_image_t	*march;
-	mlx_image_t	*april;
-	mlx_image_t	*may;
-	mlx_image_t	*june;
-	mlx_image_t	*july;
-	mlx_image_t	*august;
-	mlx_image_t	*september;
-	mlx_image_t	*october;
-	mlx_image_t	*november;
-	mlx_image_t	*december;
-}	t_month;
-
-// * NEW
 
 typedef struct s_character
 {

@@ -6,7 +6,7 @@
 /*   By: aheitz <aheitz@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/25 14:46:14 by aheitz            #+#    #+#             */
-/*   Updated: 2024/03/27 19:21:03 by aheitz           ###   ########.fr       */
+/*   Updated: 2024/03/28 17:06:56 by aheitz           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,6 +41,23 @@ void	error_occurred(t_game *game, t_error error);
 // ? Functions from the "print.c" file :
 void	print_error(char *error_message);
 
+// * Functions from the "graphics" folder :
+// ? Functions from the "castle.c" file :
+void	build_castle(t_game *game);
+void	set_castle(t_game *game);
+void	take_castle(t_game *game);
+// ? Functions from the "ground.c" file :
+void	build_random_grass(t_game *game);
+void	set_grass(t_game *game, t_grass **grass, const char *dark,
+			const char *light);
+void	set_grass_animation(t_game *game, t_grass **grass, const char *dark,
+			const char *light);
+void	set_ground(t_game *game);
+// ? Functions from the "paris.c" file :
+void	build_paris(t_game *game);
+void	set_paris(t_game *game);
+void	take_paris(t_game *game);
+
 // * Functions from the "map" folder :
 // ? Functions from the "cells.c" file :
 void	copy_line_into_cell(t_game *game, size_t y, char *current_line);
@@ -69,7 +86,25 @@ void	free_map(t_map **map);
 // ? Functions from the "is_inside.c" file :
 int		is_inside(char c, char *string);
 
-//! TO SORT :
-void	set_animation(t_game *game, int element, int textures, ...);
+// ? Functions from the "instances.c" file :
+
+
+void	set_animation(t_game *game, int element, int hidden, ...)
+void	set_all_textures(t_game *game, int textures, ...);
+void	switch_instances(mlx_image_t *previous, mlx_image_t *next, size_t index);
+void	set_texture(t_game *game, mlx_image_t **target, const char *path);
+void	set_focus(t_game *game, t_focus **focus, int x, int y);
+void	set_graphics_to_null(t_graphics	*graphics);
+void	basic_textures_initialization(t_game *game);
+void	load_graphics(t_game *game);
+void	load_element(t_game *game);
+void	display_texture(t_game *game, mlx_image_t *image, t_position *position,
+	t_focus *focus);
+void	set_game(t_game *game);
+void	open_window(t_game *game);
+void	free_graphics(t_graphics **graphics);
+void	free_graphics_structure(t_game *game, void **structure, int textures, ...);
+void	stop(mlx_key_data_t key_data, void *param);
+size_t	get_image_index(t_game *game, char c, t_position *trigger);
 
 #endif

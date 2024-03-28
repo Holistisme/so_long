@@ -6,7 +6,7 @@
 /*   By: aheitz <aheitz@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/25 11:47:15 by aheitz            #+#    #+#             */
-/*   Updated: 2024/03/27 18:40:09 by aheitz           ###   ########.fr       */
+/*   Updated: 2024/03/28 10:14:11 by aheitz           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,16 +47,13 @@ typedef enum e_error
 	// ! Errors related to game allocations
 	UNALLOCATED_CASTLE,
 	UNALLOCATED_IMAGE,
+	UNALLOCATED_FOCUS,
 	UNALLOCATED_GRAPHICS,
+	UNALLOCATED_GRASS,
+	UNALLOCATED_GROUND,
+	UNALLOCATED_PARIS,
 	UNALLOCATED_WINDOW,
 	UNLOADED_TEXTURE,
-	CHARACTER_ALLOCATION, // * TO SORT
-	MILL_TEXTURE, // * TO SORT
-	GRASS_COUNTER, // * TO SORT
-	GRASS_TEXTURE, // * TO SORT
-	BLOCKING_ALLOCATION, // * TO SORT
-	GUARDS_ALLOCATION, // * TO SORT
-	GUARDS_WAITING_ALLOCATION // * TO SORT
 }	t_error;
 
 #endif
